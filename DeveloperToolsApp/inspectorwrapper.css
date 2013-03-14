@@ -1,0 +1,82 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	outline: none;
+}
+
+body {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	background-color: #f8f8f8;
+}
+
+.top-padded {
+	padding-top: 5px;	
+}
+
+.top-left-padded {
+	padding-top: 5px;	
+	padding-left: 10px;	
+}
+
+.top-left-right-padded {
+	padding-top: 5px;	
+	padding-left: 10px;	
+	padding-right: 10px;	
+}
+
+.top-left-bottom-padded {
+	padding-top: 5px;	
+	padding-left: 10px;	
+	padding-bottom: 5px;	
+}
+
+.top-left-bottom-right-padded {
+	padding-top: 5px;	
+	padding-left: 10px;	
+	padding-bottom: 5px;	
+	padding-right: 10px;	
+}
+
+.right-justified-content {
+	text-align: right;
+}
+
+.fill-both {
+	width: 100%;
+	height: 100%;
+}
+
+.fill-horizontal {
+	width: 100%;
+}
+
+.fill-vertical {
+	height: 100%;
+}
+
+.centered {
+	margin: auto auto;
+}
+
+.centered-horizontal {
+	margin: 0px auto;
+}
+
+.centered-vertical {
+	margin: auto 0px;
+}
+
+#header {
+	border-top: 1px dotted black;
+	border-bottom: 1px dotted black;
+	background-color: #ddd;
+}
+
+#host, #port {
+	padding: 4px 9px;
+	text-indent: 4px;
+	border: 1px solid #333;
+	-webkit-border-radius: 14px;
+    outline: none;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Developer Tools App Wrapper</title>
+        <link href="inspectorwrapper.css" rel="stylesheet" type="text/css">
+    </head>
+    <body class="centered">
+        <table id="header" class="fill-horizontal top-left-bottom-right-padded" style="vertical-align: middle;">
+            <tr>
+                <td>
+                <span>http://</span>
+                <input id="host" class="noFocus" size="16" value="localhost"/>
+                <span>:</span>
+                <span id="urlport">9222</span>
+                <button id="reconnect"><span style="padding-top: 2px; padding-left: 8px;padding-right: 8px;">GO</span></button>
+                </td>
+                <td style="text-align: right;">
+                <span style="color:#888;">--remote-debugging-port=</span>                    
+                <input id="port" class="noFocus" size="4" value="9222"/>
+                </td>
+                <td style="text-align: right;">
+                <img id="info" src="developertools16.png" title="Info on how to configure Chrome for remote debugging..."/>
+                </td>
+            </tr>
+        </table>
+        <webview style="width: 700px; height: 600px;" src="http://localhost:9222"></webview>
+        <script src="inspectorwrapper.js"></script>
+    </body>
+</html>

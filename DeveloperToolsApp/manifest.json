@@ -1,0 +1,16 @@
+{
+	"name": "Developer Tools App",
+	"description": "Standalone Developer Tools App",
+	"version": "0.2",
+	"app": {
+		"background": {
+			"page": "background.html"
+		}
+	},
+	"permissions": ["webview"],
+	"icons": {
+		"16": "developertools16.png",
+		"128": "developertools128.png"
+	},
+	"manifest_version": 2
+}
