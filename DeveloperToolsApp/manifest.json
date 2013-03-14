@@ -1,7 +1,7 @@
 {
 	"name": "Developer Tools App",
 	"description": "Standalone Developer Tools App",
-	"version": "0.2",
+	"version": "0.3",
 	"app": {
 		"background": {
 			"page": "background.html"
