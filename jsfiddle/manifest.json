@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2,
+	"name": "JSFIDDLE Desktop App",
+	"description": "JSFIDDLE from your desktop.",
+	"version": "0.1",
+	"app": {
+		"background": {
+			"page": "background.html"
+		}
+	},
+	"icons": {
+		"16": "jsfiddle16.png",
+		"128": "jsfiddle128.png"
+	},
+	"permissions": ["webview"]
+}
