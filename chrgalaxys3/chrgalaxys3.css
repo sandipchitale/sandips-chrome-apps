@@ -5,11 +5,14 @@
 }
 
 body {
-	font-family: Verdana, Arial, sans-serif;
-	filter:alpha(opacity=0);
-	background-image: url("chrgalaxys3.png");
+	top: 0px;
+	left: 0px;
 	width: 258px;
 	height: 544px;
+	border: 0px;
+	margin: 0px;
+	font-family: Verdana, Arial, sans-serif;
+	background: #EEE url("chrgalaxys3.png") no-repeat scroll top left;
 }
 
 button {

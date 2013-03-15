@@ -10,6 +10,6 @@ function chrgalaxys3() {
     chrome.app.window.create('chrgalaxys3.html', {
         'width' : 265,
         'height' : 518,
-        'frame' : 'none'
+        'frame' : 'chrome'
     });
 }
