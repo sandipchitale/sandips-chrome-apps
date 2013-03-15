@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "JSFIDDLE Desktop App",
 	"description": "JSFIDDLE from your desktop.",
-	"version": "0.1",
+	"version": "0.2",
 	"app": {
 		"background": {
 			"page": "background.html"
