@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chriphone App Wrapper</title>
+        <link href="chriphone.css" rel="stylesheet" type="text/css">
+        <script src="chriphone.js"></script>
+    </head>
+    <body>
+        <div id="topshim"></div>
+        <table id="addressbar">
+            <tr id="addressbarrow">
+                <td id="backcell">
+                    <button id="back" title="Click to go back"><img src="back.png"/></button>
+                </td>
+                <td id="forwardcell" style="display: none;">
+                    <button id="forward" title="Click to go forward"><img src="forward.png"/></button>
+                </td>
+                <td>
+                    <input id="address" size="23" placeholder="Search or type URL"/>
+                </td>
+                <td id="settingscell">
+                    <button id="settings"><img src="settings.png"/></button>
+                </td>
+            </tr>
+        </table>
+        <webview id="chrome" src="http://www.google.com/mobile"></webview>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+{
+	"name": "Criphone App",
+	"description": "Criphone App",
+	"version": "0.3",
+	"app": {
+		"background": {
+			"page": "background.html"
+		}
+	},
+	"permissions": ["webview"],
+	"icons": {
+		"16": "chriphone16.png",
+		"128": "chriphone128.png"
+	},
+	"manifest_version": 2
+}
