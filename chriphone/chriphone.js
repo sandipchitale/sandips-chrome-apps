@@ -4,6 +4,21 @@ String.prototype.trim = function() {
 onload = function() {
     var webview = document.querySelector("#chrome");
     
+    var clock = document.querySelector("#clock");
+    function getClockTime()
+    {
+       var now    = new Date();
+       var hour   = now.getHours();
+       var minute = now.getMinutes();
+       var seconds = now.getSeconds();
+       if (hour   > 12) { hour = hour - 12;      }
+       if (hour   == 0) { hour = 12;             }
+       if (minute < 10) { minute = "0" + minute; }
+       setTimeout(function() {clock.textContent = getClockTime();}, (60 - seconds)*1000);
+       return (hour + ':' + minute);
+    }
+    clock.textContent = getClockTime();
+    
     var backButton = document.querySelector("#back");
     backButton.disabled = true;
     var backButtonCell = document.querySelector("#backcell");
@@ -33,7 +48,7 @@ onload = function() {
         backButtonCell.style.display = 'none';
         forwardButtonCell.style.display = 'none';
         settingsButtonCell.style.display = 'none';
-        address.size = 30;
+        address.size = 32;
     }
     
     address.onblur = function() {
