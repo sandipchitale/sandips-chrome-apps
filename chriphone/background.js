@@ -10,6 +10,6 @@ function chriphone() {
     chrome.app.window.create('chriphone.html', {
         'width' : 258,
         'height' : 544,
-        'frame' : 'none'
+        'frame' : 'chrome'
     });
 }
