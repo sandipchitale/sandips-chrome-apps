@@ -48,22 +48,18 @@ onload = function() {
         backButtonCell.style.display = 'none';
         forwardButtonCell.style.display = 'none';
         settingsButtonCell.style.display = 'none';
-        address.size = 32;
+        address.size = 26;
     }
     
     address.onblur = function() {
+        address.size = 14;
         backButtonCell.style.display = 'inline';
-        if (webview.canGoForward()) {
+        if (webview.canGoForward()) {            
             forwardButtonCell.style.display = 'inline';
         } else {
-            forwardButtonCell.style.display = 'none';
+            forwardButtonCell.style.display = 'none';            
         }
         settingsButtonCell.style.display = 'inline';
-        if (webview.canGoForward()) {
-            address.size = 18;
-        } else {
-            address.size = 23;
-        }
     }
     
     address.onkeypress = function(e)
@@ -91,6 +87,7 @@ onload = function() {
     
     function adjustBackAndForwardAfterStop() {
          address.value = webview.src;
+         address.title = webview.src;
          adjustBackAndForwardAfterAbort();
     }
     
@@ -100,18 +97,18 @@ onload = function() {
             forwardButton.disabled = false;
             if (document.activeElement === address) {
                 forwardButtonCell.style.display = 'none';
-                address.size = 32 ;
+                address.size = 25;
             } else {
-                address.size = 18;
+                address.size = 14;
                 forwardButtonCell.style.display = 'inline';
             }
         } else {
             forwardButton.disabled = true;            
             forwardButtonCell.style.display = 'none';
             if (document.activeElement === address) {
-                address.size = 32;
+                address.size = 25;
             } else {
-                address.size = 23;
+                address.size = 18;
             }
         }
     }

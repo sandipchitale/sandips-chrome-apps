@@ -20,9 +20,15 @@ button {
 	background-color: transparent;
 	border: 1px solid transparent;
 	-webkit-border-radius: 3px;
-	padding-top: 1px;
+	padding-top: 2px;
 	padding-left: 2px;
 	padding-right: 2px;
+}
+
+img {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
 }
 
 button:hover {
