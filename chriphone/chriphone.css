@@ -66,6 +66,11 @@ button:hover {
 	border-bottom: 1px solid #888;
 }
 
+#addresscell {
+	height: 26px;
+	vertical-align: middle;
+}
+
 #addressbarrow {
 	text-align: center;
 	vertical-align: middle;
@@ -87,6 +92,10 @@ button:hover {
 	border: 1px solid #888;
 	-webkit-border-radius: 4px;
     outline: none;
+}
+
+#addtabs {
+	
 }
 
 #settings {

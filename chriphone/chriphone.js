@@ -27,8 +27,8 @@ onload = function() {
     var forwardButtonCell = document.querySelector("#forwardcell");
     var address = document.querySelector("#address");
     address.value = webview.src;
-    var settingsButton = document.querySelector("#settings");
-    var settingsButtonCell = document.querySelector("#settingscell");
+    var addtabButton = document.querySelector("#addtab");
+    var addtabButtonCell = document.querySelector("#addtabcell");
     
     backButton.onclick = function() {
         if (webview.canGoBack()) {
@@ -47,7 +47,7 @@ onload = function() {
     address.onfocus = function() {
         backButtonCell.style.display = 'none';
         forwardButtonCell.style.display = 'none';
-        settingsButtonCell.style.display = 'none';
+        addtabButtonCell.style.display = 'none';
         address.size = 26;
     }
     
@@ -59,7 +59,7 @@ onload = function() {
         } else {
             forwardButtonCell.style.display = 'none';            
         }
-        settingsButtonCell.style.display = 'inline';
+        addtabButtonCell.style.display = 'inline';
     }
     
     address.onkeypress = function(e)
@@ -83,6 +83,14 @@ onload = function() {
                 webview.focus();
             }
         }
+    }
+    
+    addtabButton.onclick = function() {
+        chrome.app.window.create('chriphone.html', {
+            'width' : 258,
+            'height' : 544,
+            'frame' : 'chrome'
+        }); 
     }
     
     function adjustBackAndForwardAfterStop() {
