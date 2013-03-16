@@ -98,14 +98,19 @@ onload = function() {
         backButton.disabled = !webview.canGoBack();
         if (webview.canGoForward()) {
             forwardButton.disabled = false;
-            if (document.activeElement !== address) {
-                forwardButtonCell.style.display = 'inline';
+            if (document.activeElement === address) {
+                forwardButtonCell.style.display = 'none';
+                address.size = 32 ;
+            } else {
                 address.size = 18;
+                forwardButtonCell.style.display = 'inline';
             }
         } else {
             forwardButton.disabled = true;            
-            if (document.activeElement !== address) {
-                forwardButtonCell.style.display = 'none';
+            forwardButtonCell.style.display = 'none';
+            if (document.activeElement === address) {
+                address.size = 32;
+            } else {
                 address.size = 23;
             }
         }
