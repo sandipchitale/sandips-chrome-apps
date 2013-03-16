@@ -6,36 +6,41 @@ onload = function() {
 
     var address = document.querySelector("#address");
     address.value = webview.src;
-    
+    address.title = webview.src;
+
     var clock = document.querySelector("#clock");
-    function getClockTime()
-    {
-       var now    = new Date();
-       var hour   = now.getHours();
-       var minute = now.getMinutes();
-       var seconds = now.getSeconds();
-       if (hour   > 12) { hour = hour - 12;      }
-       if (hour   == 0) { hour = 12;             }
-       if (minute < 10) { minute = "0" + minute; }
-       setTimeout(function() {clock.textContent = getClockTime();}, (60 - seconds)*1000);
-       return (hour + ':' + minute);
+    function getClockTime() {
+        var now = new Date();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var seconds = now.getSeconds();
+        if (hour > 12) {
+            hour = hour - 12;
+        }
+        if (hour == 0) {
+            hour = 12;
+        }
+        if (minute < 10) {
+            minute = "0" + minute;
+        }
+        setTimeout(function() {
+            clock.textContent = getClockTime();
+        }, (60 - seconds) * 1000);
+        return (hour + ':' + minute);
     }
+
+
     clock.textContent = getClockTime();
-    
-    address.onkeypress = function(e)
-    {
-        if(e.keyCode === 13)
-        {
+
+    address.onkeypress = function(e) {
+        if (e.keyCode === 13) {
             var url = address.value.trim();
             if (url.length > 0) {
                 if (url.indexOf(' ') >= 0) {
                     url = "https://www.google.com/search?q=" + url.split(' ').join('+');
                 } else {
                     var lowercaseUrl = url.toLowerCase();
-                    if (!(lowercaseUrl.indexOf("http:") === 0 ||
-                        lowercaseUrl.indexOf("file:") === 0 ||
-                        lowercaseUrl.indexOf("https:") === 0 ||
-                        lowercaseUrl.indexOf("chrome:") === 0)){
+                    if (!(lowercaseUrl.indexOf("http:") === 0 || lowercaseUrl.indexOf("file:") === 0 || lowercaseUrl.indexOf("https:") === 0 || lowercaseUrl.indexOf("chrome:") === 0)) {
                         url = "http://" + url;
                     }
                 }
@@ -44,14 +49,15 @@ onload = function() {
             }
         }
     }
-
     function adjustBackAndForwardAfterStop() {
-         address.value = webview.src;
-         adjustBackAndForwardAfterAbort();
+        address.value = webview.src;
+        address.title = webview.src;
+        adjustBackAndForwardAfterAbort();
     }
 
     function adjustBackAndForwardAfterAbort() {
     }
+
 
     webview.addEventListener("loadabort", adjustBackAndForwardAfterAbort);
     webview.addEventListener("loadstop", adjustBackAndForwardAfterStop);
