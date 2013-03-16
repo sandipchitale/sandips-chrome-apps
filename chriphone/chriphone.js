@@ -98,8 +98,16 @@ onload = function() {
         backButton.disabled = !webview.canGoBack();
         if (webview.canGoForward()) {
             forwardButton.disabled = false;
+            if (document.activeElement !== address) {
+                forwardButtonCell.style.display = 'inline';
+                address.size = 18;
+            }
         } else {
             forwardButton.disabled = true;            
+            if (document.activeElement !== address) {
+                forwardButtonCell.style.display = 'none';
+                address.size = 23;
+            }
         }
     }
     
@@ -107,7 +115,8 @@ onload = function() {
     webview.addEventListener("loadstop", adjustBackAndForwardAfterStop);
     
     document.body.onclick = function(e) {
-        if (e.x > 120 && e.x < 140 && e.y > 492 && e.y < 512) {
+        if ((e.x > 120 && e.x < 140 && e.y > 492 && e.y < 512) ||
+            (e.x > 175 && e.x < 210 && e.y >= 0 && e.y < 5)) {
             window.close();
         }
     }
