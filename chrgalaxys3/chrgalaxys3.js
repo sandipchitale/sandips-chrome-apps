@@ -7,6 +7,9 @@ onload = function() {
     var address = document.querySelector("#address");
     address.value = webview.src;
     address.title = webview.src;
+    
+    var addtabButton = document.querySelector("#addtab");
+    var addtabButtonCell = document.querySelector("#addtabcell");
 
     var clock = document.querySelector("#clock");
     function getClockTime() {
@@ -29,7 +32,6 @@ onload = function() {
         return (hour + ':' + minute);
     }
 
-
     clock.textContent = getClockTime();
 
     address.onkeypress = function(e) {
@@ -49,6 +51,16 @@ onload = function() {
             }
         }
     }
+
+    
+    addtabButton.onclick = function() {
+        chrome.app.window.create('chrgalaxys3.html', {
+            'width' : 265,
+            'height' : 518,
+            'frame' : 'chrome'
+        }); 
+    }
+    
     function adjustBackAndForwardAfterStop() {
         address.value = webview.src;
         address.title = webview.src;
@@ -57,7 +69,6 @@ onload = function() {
 
     function adjustBackAndForwardAfterAbort() {
     }
-
 
     webview.addEventListener("loadabort", adjustBackAndForwardAfterAbort);
     webview.addEventListener("loadstop", adjustBackAndForwardAfterStop);
