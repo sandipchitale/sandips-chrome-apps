@@ -1,0 +1,16 @@
+{
+	"name": "Chrgalaxys4 App",
+	"description": "Chrgalaxys4 App",
+	"version": "0.5",
+	"app": {
+		"background": {
+			"page": "background.html"
+		}
+	},
+	"permissions": ["webview"],
+	"icons": {
+		"16": "chrgalaxys416.png",
+		"128": "chrgalaxys4128.png"
+	},
+	"manifest_version": 2
+}
