@@ -3,7 +3,7 @@ String.prototype.trim = function() {
 };
 onload = function() {
     var webview = document.querySelector("#chrome");
-    
+
     var clock = document.querySelector("#clock");
     function getClockTime()
     {
@@ -18,9 +18,11 @@ onload = function() {
        return (hour + ':' + minute);
     }
     clock.textContent = getClockTime();
-    
+
     var backButton = document.querySelector("#back");
     backButton.disabled = true;
+    var backImage = document.querySelector("#backImage");
+    backImage.style.opacity = 0.3;
     var backButtonCell = document.querySelector("#backcell");
     var forwardButton = document.querySelector("#forward");
     forwardButton.disabled = true;
@@ -29,39 +31,39 @@ onload = function() {
     address.value = webview.src;
     var addtabButton = document.querySelector("#addtab");
     var addtabButtonCell = document.querySelector("#addtabcell");
-    
+
     backButton.onclick = function() {
         if (webview.canGoBack()) {
             webview.stop();
             webview.back();
-        }    
+        }
     }
-    
+
     forwardButton.onclick = function() {
         if (webview.canGoForward()) {
             webview.stop();
             webview.forward();
-        }    
+        }
     }
-    
+
     address.onfocus = function() {
         backButtonCell.style.display = 'none';
         forwardButtonCell.style.display = 'none';
         addtabButtonCell.style.display = 'none';
         address.size = 26;
     }
-    
+
     address.onblur = function() {
         address.size = 14;
         backButtonCell.style.display = 'inline';
-        if (webview.canGoForward()) {            
+        if (webview.canGoForward()) {
             forwardButtonCell.style.display = 'inline';
         } else {
-            forwardButtonCell.style.display = 'none';            
+            forwardButtonCell.style.display = 'none';
         }
         addtabButtonCell.style.display = 'inline';
     }
-    
+
     address.onkeypress = function(e)
     {
         if(e.keyCode === 13)
@@ -76,7 +78,7 @@ onload = function() {
                         lowercaseUrl.indexOf("file:") === 0 ||
                         lowercaseUrl.indexOf("https:") === 0 ||
                         lowercaseUrl.indexOf("chrome:") === 0)){
-                        url = "http://" + url;   
+                        url = "http://" + url;
                     }
                 }
                 webview.src = url;
@@ -84,23 +86,27 @@ onload = function() {
             }
         }
     }
-    
+
     addtabButton.onclick = function() {
-        chrome.app.window.create('chriphone.html', {
-            'width' : 258,
-            'height' : 544,
-            'frame' : 'chrome'
-        }); 
+        chrome.runtime.getBackgroundPage(function(ackgroundPage) {
+            ackgroundPage.chriphone();  
+        });
     }
-    
+
     function adjustBackAndForwardAfterStop() {
          address.value = webview.src;
          address.title = webview.src;
          adjustBackAndForwardAfterAbort();
     }
-    
+
     function adjustBackAndForwardAfterAbort() {
-        backButton.disabled = !webview.canGoBack();
+        if (webview.canGoBack()) {
+            backButton.disabled = false;
+            backImage.style.opacity = 1.0;
+        } else {
+            backButton.disabled = false;
+            backImage.style.opacity = 0.3;
+        }
         if (webview.canGoForward()) {
             forwardButton.disabled = false;
             if (document.activeElement === address) {
@@ -111,7 +117,7 @@ onload = function() {
                 forwardButtonCell.style.display = 'inline';
             }
         } else {
-            forwardButton.disabled = true;            
+            forwardButton.disabled = true;
             forwardButtonCell.style.display = 'none';
             if (document.activeElement === address) {
                 address.size = 25;
@@ -120,10 +126,10 @@ onload = function() {
             }
         }
     }
-    
+
     webview.addEventListener("loadabort", adjustBackAndForwardAfterAbort);
     webview.addEventListener("loadstop", adjustBackAndForwardAfterStop);
-    
+
     document.body.onclick = function(e) {
         if ((e.x > 120 && e.x < 140 && e.y > 492 && e.y < 512) ||
             (e.x > 175 && e.x < 210 && e.y >= 0 && e.y < 5)) {
