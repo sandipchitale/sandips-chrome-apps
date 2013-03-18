@@ -37,6 +37,7 @@ table, tbody, th, td {
 
 #topshim {
 	height: 52px;
+	-webkit-app-region: drag;
 }
 
 #statusbar {

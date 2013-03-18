@@ -37,6 +37,7 @@ button:hover {
 
 #topshim {
 	height: 79px;
+	-webkit-app-region: drag;
 }
 
 #statusbar {

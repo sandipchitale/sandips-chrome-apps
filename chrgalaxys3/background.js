@@ -9,7 +9,11 @@ chrome.app.runtime.onRestarted.addListener(function() {
 function chrgalaxys3() {
     chrome.app.window.create('chrgalaxys3.html', {
         'width' : 265,
+        'minWidth' : 265,
+        'maxWidth' : 265,
         'height' : 518,
-        'frame' : 'chrome'
+        'minHeight' : 518,
+        'maxHeight' : 518,
+        'frame' : 'none'
     });
 }

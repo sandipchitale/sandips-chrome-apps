@@ -9,7 +9,11 @@ chrome.app.runtime.onRestarted.addListener(function() {
 function chriphone() {
     chrome.app.window.create('chriphone.html', {
         'width' : 258,
+        'minWidth' : 258,
+        'maxWidth' : 258,
         'height' : 544,
-        'frame' : 'chrome'
+        'minHeight' : 544,
+        'maxHeight' : 544,
+        'frame' : 'none'
     });
 }
