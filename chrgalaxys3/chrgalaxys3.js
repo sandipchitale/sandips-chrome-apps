@@ -4,10 +4,22 @@ String.prototype.trim = function() {
 onload = function() {
     var webview = document.querySelector("#chrome");
 
+    var backButton = document.querySelector("#back");
+    backButton.disabled = true;
+    var backImage = document.querySelector("#backImage");
+    backImage.style.opacity = 0.3;
+    var backButtonCell = document.querySelector("#backcell");
+
+    var forwardButton = document.querySelector("#forward");
+    forwardButton.disabled = true;
+    var forwardImage = document.querySelector("#forwardImage");
+    forwardImage.style.opacity = 0.3;
+    var forwardButtonCell = document.querySelector("#forwardcell");
+
     var address = document.querySelector("#address");
     address.value = webview.src;
     address.title = webview.src;
-    
+
     var addtabButton = document.querySelector("#addtab");
     var addtabButtonCell = document.querySelector("#addtabcell");
 
@@ -34,6 +46,20 @@ onload = function() {
 
     clock.textContent = getClockTime();
 
+    backButton.onclick = function() {
+        if (webview.canGoBack()) {
+            webview.stop();
+            webview.back();
+        }
+    }
+
+    forwardButton.onclick = function() {
+        if (webview.canGoForward()) {
+            webview.stop();
+            webview.forward();
+        }
+    }
+
     address.onkeypress = function(e) {
         if (e.keyCode === 13) {
             var url = address.value.trim();
@@ -52,15 +78,12 @@ onload = function() {
         }
     }
 
-    
     addtabButton.onclick = function() {
-        chrome.app.window.create('chrgalaxys3.html', {
-            'width' : 265,
-            'height' : 518,
-            'frame' : 'chrome'
-        }); 
+        chrome.runtime.getBackgroundPage(function(backgroundPage) {
+            backgroundPage.chrgalaxys3();
+        });
     }
-    
+
     function adjustBackAndForwardAfterStop() {
         address.value = webview.src;
         address.title = webview.src;
@@ -68,6 +91,20 @@ onload = function() {
     }
 
     function adjustBackAndForwardAfterAbort() {
+        if (webview.canGoBack()) {
+            backButton.disabled = false;
+            backImage.style.opacity = 1.0;
+        } else {
+            backButton.disabled = false;
+            backImage.style.opacity = 0.3;
+        }
+        if (webview.canGoForward()) {
+            forwardButton.disabled = false;
+            forwardImage.style.opacity = 1.0;
+        } else {
+            forwardButton.disabled = true;
+            forwardImage.style.opacity = 0.3;
+        }
     }
 
     webview.addEventListener("loadabort", adjustBackAndForwardAfterAbort);
