@@ -1,0 +1,16 @@
+{
+	"name": "Display Wall App",
+	"description": "Display Wall for your desktop.",
+	"version": "0.1",
+	"app": {
+		"background": {
+			"page": "background.html"
+		}
+	},
+	"icons": {
+		"16": "displaywall16.png",
+		"128": "displaywall128.png"
+	},
+	"permissions" : [],
+	"manifest_version": 2
+}
