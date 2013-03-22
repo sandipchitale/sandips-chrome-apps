@@ -7,21 +7,23 @@ onload = function() {
     start();
 
     canvas.addEventListener('click', function(e) {
-        chrome.runtime.getBackgroundPage(function(backgroundPage) {
-            if ((e.x >= window.outerWidth / 3) && (e.x < (2 * window.outerWidth) / 3) && (e.y >= window.outerHeight / 3) && (e.y < (2 * window.outerHeight) / 3)) {
-                window.close();
-                window.CLOSED = true;
-                return;
-            }
-            backgroundPage.postMessage({
-                sx : window.screenX,
-                sy : window.screenY,
-                w : window.outerWidth,
-                h : window.outerHeight,
-                x : e.x,
-                y : e.y
-            }, "*");
-        });
+        if (window === top) {
+            chrome.runtime.getBackgroundPage(function(backgroundPage) {
+                if ((e.x >= window.outerWidth / 3) && (e.x < (2 * window.outerWidth) / 3) && (e.y >= window.outerHeight / 3) && (e.y < (2 * window.outerHeight) / 3)) {
+                    window.close();
+                    window.CLOSED = true;
+                    return;
+                }
+                backgroundPage.postMessage({
+                    sx : window.screenX,
+                    sy : window.screenY,
+                    w : window.outerWidth,
+                    h : window.outerHeight,
+                    x : e.x,
+                    y : e.y
+                }, "*");
+            });
+        }
     });
 
     canvas.addEventListener('keydown', onKeyDown);
@@ -49,13 +51,15 @@ function start() {
     bg = randomColor(128, 128, 128);
     WIDTH = document.querySelector('#canvas').width;
     HEIGHT = document.querySelector('#canvas').height;
-    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 64, randomColor(128, 128, 128));
-    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 48, randomColor(128, 128, 128));
-    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 32, randomColor(128, 128, 128));
-    carray[1] = new Circle(Math.random() * 200, Math.random() * 200, 24, randomColor(128, 128, 128));
-    carray[2] = new Circle(Math.random() * 200, Math.random() * 200, 16, randomColor(128, 128, 128));
-    carray[3] = new Circle(Math.random() * 200, Math.random() * 200, 8,  randomColor(128, 128, 128));
-    return setInterval(draw, 100);
+    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 64, randomColor(255, 0, 0));
+    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 48, randomColor(255, 0, 0));
+    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 32, randomColor(255, 0, 0));
+    carray[1] = new Circle(Math.random() * 200, Math.random() * 200, 24, randomColor(255, 0, 0));
+    carray[2] = new Circle(Math.random() * 200, Math.random() * 200, 16, randomColor(255, 0, 0));
+    carray[3] = new Circle(Math.random() * 200, Math.random() * 200, 8,  randomColor(255, 0, 0));
+    var factor = (Math.random() * new Date().getMilliseconds()) % 1.0;
+
+    return setInterval(draw, 50 + (factor * 80));
 }
 
 // Draw Function
