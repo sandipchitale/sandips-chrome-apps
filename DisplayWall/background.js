@@ -3,11 +3,7 @@ chrome.app.runtime.onLaunched.addListener(function() { debugger;
 });
 
 function launch() {
-    chrome.app.window.create('panel.html', {
-        'width' : 200,
-        'height' : 200,
-        'frame' : 'none'
-    });
+    showPanel(200, 200);
 };
 
 function processMessage(e) {
@@ -70,14 +66,44 @@ function processMessage(e) {
         dx = 2 + nw;
         dy = 2 + nh;
     }
-    chrome.app.window.create('panel.html', {
-        'bounds' : {
-            'left' : (nx + dx),
-            'top' : (ny + dy),
-            'width' : nw,
-            'height' : nh
-        },
+    showPanel(nw, nh, (nx + dx), (ny + dy));
+}
+
+var panels = [];
+function showPanel(w, h, left, top) {
+    var createOptions = {
+        'width' : w,
+        'height' : h,
         'frame' : 'none'
+    };
+    
+    if (left) {
+        createOptions.left = left;
+    }
+    if (top) {
+        createOptions.top = top;
+    }
+    
+    chrome.app.window.create('panel.html', createOptions, function(panel) {
+        panels.push(panel);
+        var focusing = false;
+        panel.contentWindow.onfocus = function() {
+            if (focusing) {
+                return;
+            }
+            focusing = true;
+            for (var i = 0; i < panels.length; i++) {
+                if (panels[i].contentWindow.CLOSED === true) {
+                    var index = panels.indexOf(panels[i]);
+                    if(index!=-1){
+                       panels.splice(index, 1);
+                    }
+                } else {
+                    panel[i].focus();
+                }
+            }
+            focusing = false;
+        }
     });
 }
 

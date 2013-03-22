@@ -1,4 +1,5 @@
 window.onresize = doLayout;
+window.CLOSED = false;
 onload = function() {
     var canvas = document.querySelector('#canvas');
     doLayout();
@@ -9,6 +10,7 @@ onload = function() {
         chrome.runtime.getBackgroundPage(function(backgroundPage) {
             if ((e.x >= window.outerWidth / 3) && (e.x < (2 * window.outerWidth) / 3) && (e.y >= window.outerHeight / 3) && (e.y < (2 * window.outerHeight) / 3)) {
                 window.close();
+                window.CLOSED = true;
                 return;
             }
             backgroundPage.postMessage({
@@ -32,6 +34,8 @@ function doLayout() {
     canvas.style.height = (document.documentElement.clientHeight) + 'px';
 }
 
+// Code below is based on http://www.efeion.com/canvastest/balls1.js
+
 var WIDTH;
 var HEIGHT;
 var g;
@@ -40,17 +44,33 @@ var leftDown = false;
 var carray = new Array();
 var bg;
 
-// Main Function To Start
 function start() {
     g = document.querySelector('#canvas').getContext("2d");
     bg = randomColor(128, 128, 128);
     WIDTH = document.querySelector('#canvas').width;
     HEIGHT = document.querySelector('#canvas').height;
     carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 64, randomColor(128, 128, 128));
-    carray[1] = new Circle(Math.random() * 200, Math.random() * 200, 32, randomColor(128, 128, 128));
+    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 48, randomColor(128, 128, 128));
+    carray[0] = new Circle(Math.random() * 200, Math.random() * 200, 32, randomColor(128, 128, 128));
+    carray[1] = new Circle(Math.random() * 200, Math.random() * 200, 24, randomColor(128, 128, 128));
     carray[2] = new Circle(Math.random() * 200, Math.random() * 200, 16, randomColor(128, 128, 128));
-    carray[3] = new Circle(Math.random() * 200, Math.random() * 200, 8,  randomColor (128, 128, 128));
+    carray[3] = new Circle(Math.random() * 200, Math.random() * 200, 8,  randomColor(128, 128, 128));
     return setInterval(draw, 100);
+}
+
+// Draw Function
+function draw() {
+    clear();
+    var i;
+    for ( i = 0; i < carray.length; i++) {
+        carray[i].move();
+        carray[i].draw();
+    }
+}
+
+function clear() {
+    g.fillStyle = bg;
+    g.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
 function randomColor(r, g, b) {
@@ -93,7 +113,7 @@ function Circle(x, y, r, c) {
     }
 
     this.getX = function() {
-        return x;
+        return this.x;
     }
 
     this.getY = function() {
@@ -112,20 +132,5 @@ function Circle(x, y, r, c) {
             this.dy = this.dy * -1;
         }
     }
-}
-
-// Draw Function
-function draw() {
-    clear();
-    var i;
-    for ( i = 0; i < carray.length; i++) {
-        carray[i].move();
-        carray[i].draw();
-    }
-}
-
-function clear() {
-    g.fillStyle = bg;
-    g.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
