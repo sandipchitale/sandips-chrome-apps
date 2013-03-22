@@ -73,7 +73,11 @@ var panels = [];
 function showPanel(w, h, left, top) {
     var createOptions = {
         'width' : w,
+        'minWidth' : w,
+        'maxWidth' : w,
         'height' : h,
+        'minHeight' : h,
+        'maxHeight' : h,
         'frame' : 'none'
     };
     

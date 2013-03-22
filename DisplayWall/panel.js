@@ -9,11 +9,6 @@ onload = function() {
     canvas.addEventListener('click', function(e) {
         if (window === top) {
             chrome.runtime.getBackgroundPage(function(backgroundPage) {
-                if ((e.x >= window.outerWidth / 3) && (e.x < (2 * window.outerWidth) / 3) && (e.y >= window.outerHeight / 3) && (e.y < (2 * window.outerHeight) / 3)) {
-                    window.close();
-                    window.CLOSED = true;
-                    return;
-                }
                 backgroundPage.postMessage({
                     sx : window.screenX,
                     sy : window.screenY,
@@ -26,8 +21,22 @@ onload = function() {
         }
     });
 
-    canvas.addEventListener('keydown', onKeyDown);
-    canvas.addEventListener('keyup', onKeyDown);
+    var closer = document.querySelector('#closer');
+    if (window === top) {
+        closer.addEventListener('click', function(e) {
+            window.CLOSED = true;
+            window.close();
+            return;
+        });
+    } else {
+        closer.parentNode.removeChild(closer);
+    }
+
+    var mover = document.querySelector('#mover');
+    if (window === top) {
+    } else {
+        mover.parentNode.removeChild(mover);
+    }
 };
 
 function doLayout() {
@@ -41,8 +50,6 @@ function doLayout() {
 var WIDTH;
 var HEIGHT;
 var g;
-var rightDown = false;
-var leftDown = false;
 var carray = new Array();
 var bg;
 
@@ -80,23 +87,6 @@ function clear() {
 function randomColor(r, g, b) {
     var factor = (Math.random() * new Date().getMilliseconds()) % 1.0;
     return "rgb(" + (factor * r).toFixed(0) + "," + (factor * g).toFixed(0) + "," + (factor * b).toFixed(0) + ")";
-}
-
-// Get Key Input
-function onKeyDown(evt) {
-    if (evt.keyCode == 39)
-        rightDown = true;
-    else if (evt.keyCode == 37)
-        leftDown = true;
-    dx = dx * -1;
-}
-
-function onKeyUp(evt) {
-    if (evt.keyCode == 39)
-        rightDown = false;
-    else if (evt.keyCode == 37)
-        leftDown = false;
-    dx = dx * -1;
 }
 
 // Circle Class
