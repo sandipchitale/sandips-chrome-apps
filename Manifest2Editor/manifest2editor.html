@@ -19,48 +19,62 @@
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span6">
-                    <button class="btn"><i class="icon-upload"></i> Load...</button>
-                    <button class="btn"><i class="icon-repeat"></i> Reload</button>
+                    <button class="btn">
+                        <i class="icon-upload"></i> Load...
+                    </button>
+                    <button class="btn">
+                        <i class="icon-repeat"></i> Reload
+                    </button>
                     <div class="well well-small" id="name-property">
-                        <span>Name : </span><input type="text" ng-model="manifest2.name"/></input></br>
-
-                        <span>Version : </span><input type="text" ng-model="manifest2.version"/></input></br>
-
-                        <label class="checkbox">
-                            <input type="checkbox" ng-click="computeHasDescription($event)" ng-model="hasDescription">
-                            </input>&nbsp;Description <a href="https://developer.chrome.com/apps/manifest.html#description" target="manifest_format">?</a> </label>
-                        <input type="text" ng-model="manifest2.description" ng-visible="hasDescription" />
-                        </input>
-
-                        <label class="checkbox">
-                            <input type="checkbox" ng-click="computeHasIcons($event)" ng-model="hasIcons">
-                            </input>&nbsp;Icons <a href="https://developer.chrome.com/apps/manifest.html#icons" target="manifest_format">?</a> </label>
-                            <div class='indent' ng-visible="hasIcons">
-                                <table class="table table-condensed">
-                                    <tr ng-repeat='(iconSize, iconUrl) in iconsCopy'>
-                                        <td>
-                                            <span>{{iconSize}}x{{iconSize}} :</span>
-                                        </td>
-                                        <td>
+                        <table class="table table-condensed">
+                            <tr>
+                                <td><span>Name : </span></td>
+                                <td>
+                                <input type="text" ng-model="manifest2.name"/>
+                                </input></br></td>
+                            </tr>
+                            <tr>
+                                <td><span>Version : </span></td>
+                                <td>
+                                <input type="text" ng-model="manifest2.version"/>
+                                </input></br></td>
+                            </tr>
+                            <tr>
+                                <td><label class="checkbox">
+                                    <input type="checkbox" ng-click="computeHasDescription($event)" ng-model="hasDescription">
+                                    </input>&nbsp;Description <a href="https://developer.chrome.com/apps/manifest.html#description" target="manifest_format">?</a> </label></td>
+                                <td>
+                                <input type="text" ng-model="manifest2.description" ng-visible="hasDescription" />
+                                </input> </td>
+                            </tr>
+                            <tr>
+                                <td><label class="checkbox">
+                                    <input type="checkbox" ng-click="computeHasIcons($event)" ng-model="hasIcons">
+                                    </input>&nbsp;Icons <a href="https://developer.chrome.com/apps/manifest.html#icons" target="manifest_format">?</a> </label></td>
+                                <td>
+                                <div ng-show="hasIcons">
+                                    <table class="table table-condensed">
+                                        <tr ng-repeat='(iconSize, iconUrl) in iconsCopy'>
+                                            <td ><span>{{iconSize}}x{{iconSize}} :</span></td>
+                                            <td>
                                             <input type="text" ng-model="manifest2.icons[iconSize]" />
-                                        </td>
-                                        <td>
-                                            <i class="icon-remove-sign" ng-click="removeIcon(iconSize)"></i>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <select ng-model="selectedIconSize" ng-options="iconSize for iconSize in ['16', '48', '128']" ></select>
-                                <i class="icon-plus-sign" ng-click="addIcon(selectedIconSize)"></i>
-                            </div>
-                        </input>
-                        
-                        <hr />
+                                            </td>
+                                            <td><i class="icon-remove-sign" ng-click="removeIcon(iconSize)"></i></td>
+                                        </tr>
+                                    </table><select ng-model="selectedIconSize" ng-options="iconSize for iconSize in ['16', '48', '128']" ></select><i class="icon-plus-sign" ng-click="addIcon(selectedIconSize)"></i></td>                                   
+                                </div>
+                            </tr>
+                        </table>
                         <a href="https://developer.chrome.com/apps/manifest.html" target="manifest_format">Manifest file format</a>
                     </div>
                 </div>
                 <div class="span6">
-                    <button class="btn"><i class="icon-download"></i> Save</button>
-                    <button class="btn"><i class="icon-download-alt"></i> Save As...</button>
+                    <button class="btn">
+                        <i class="icon-download"></i> Save
+                    </button>
+                    <button class="btn">
+                        <i class="icon-download-alt"></i> Save As...
+                    </button>
                     <div class="well well-small" id="#preview">
                         <pre id="#preview">{{manifest2|json}}</pre>
                     </div>
