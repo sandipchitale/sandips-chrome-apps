@@ -1,36 +1,8 @@
 angular.module('Manifest2EditorApp', []).controller('Manifest2EditorController', function($scope) {
     $scope.manifest2 = {
+        'name' : 'App Name',
+        'version' : '0.0.1',
         'manifest_version' : 2
-    };
-
-    $scope.hasName = false;
-    $scope.name = 'App name';
-
-    $scope.computeHasName = function($event) {
-        var checkbox = $event.target;
-        if (checkbox.checked) {
-            $scope.manifest2.name = $scope.name;
-            $scope.hasName = true;
-        } else {
-            $scope.hasName = false;
-            $scope.name = $scope.manifest2.name;
-            delete $scope.manifest2.name;
-        }
-    };
-    
-    $scope.hasVersion = false;
-    $scope.version = '0.0.1';
-
-    $scope.computeHasVersion = function($event) {
-        var checkbox = $event.target;
-        if (checkbox.checked) {
-            $scope.manifest2.version = $scope.version;
-            $scope.hasVersion = true;
-        } else {
-            $scope.hasVersion = false;
-            $scope.version = $scope.manifest2.version;
-            delete $scope.manifest2.version;
-        }
     };
     
     $scope.hasDescription = false;
