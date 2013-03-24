@@ -51,6 +51,22 @@
                             </tr>
                             <tr>
                                 <td><label class="checkbox">
+                                    <input type="checkbox" ng-click="computeHasHomePageUrl($event)" ng-model="hasHomePageUrl">
+                                    </input>&nbsp;Home Page Url <a href="https://developer.chrome.com/apps/manifest.html#homepage_url" target="manifest_format">?</a> </label></td>
+                                <td>
+                                <input type="text" ng-model="manifest2.homepage_url" ng-visible="hasHomePageUrl" />
+                                </input> </td>
+                            </tr>
+                            <tr>
+                                <td><label class="checkbox">
+                                    <input type="checkbox" ng-click="computeHasDefaultLocale($event)" ng-model="hasDefaultLocale">
+                                    </input>&nbsp;Default Locale <a href="https://developer.chrome.com/apps/manifest.html#default_locale" target="manifest_format">?</a> </label></td>
+                                <td>
+                                    <select ng-model="selectedDefaultLocale" ng-visible="hasDefaultLocale" ng-options="default_locale for default_locale in ['en', 'fr']" ng-change="setDefaultLocale()"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="checkbox">
                                     <input type="checkbox" ng-click="computeHasIcons($event)" ng-model="hasIcons">
                                     </input>&nbsp;Icons <a href="https://developer.chrome.com/apps/manifest.html#icons" target="manifest_format">?</a> </label></td>
                                 <td>
@@ -76,6 +92,9 @@
                     </button>
                     <button class="btn">
                         <i class="icon-download-alt"></i> Save As...
+                    </button>
+                    <button class="btn">
+                        <i class="icon-camera"></i> Copy
                     </button>
                     <div class="well well-small" id="#preview">
                         <pre id="#preview">{{manifest2|json}}</pre>

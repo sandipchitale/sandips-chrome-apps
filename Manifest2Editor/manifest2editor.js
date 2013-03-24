@@ -20,6 +20,21 @@ angular.module('Manifest2EditorApp', []).controller('Manifest2EditorController',
         }
     };
 
+    $scope.hasHomePageUrl = false;
+    $scope.homepage_url = 'http://';
+
+    $scope.computeHasHomePageUrl = function($event) {
+        var checkbox = $event.target;
+        if (checkbox.checked) {
+            $scope.manifest2.homepage_url = $scope.homepage_url;
+            $scope.hasHomePageUrl = true;
+        } else {
+            $scope.hasHomePageUrl = false;
+            $scope.homepage_url = $scope.manifest2.homepage_url;
+            delete $scope.manifest2.homepage_url;
+        }
+    };
+
     $scope.hasIcons = false;
     $scope.icons = {
         '128' : '128.png'
@@ -49,6 +64,26 @@ angular.module('Manifest2EditorApp', []).controller('Manifest2EditorController',
     $scope.addIcon = function(iconSize) {
         $scope.manifest2.icons[iconSize] = iconSize + ".png";
         $scope.iconsCopy[iconSize] = iconSize + ".png";
+    }
+    
+    
+    $scope.hasDefaultLocale = false;
+    $scope.selectedDefaultLocale = 'en';
+    
+    $scope.computeHasDefaultLocale = function($event) {
+        var checkbox = $event.target;
+        if (checkbox.checked) {
+            $scope.manifest2.default_locale = $scope.selectedDefaultLocale;
+            $scope.hasDefaultLocale = true;
+        } else {
+            $scope.hasDefaultLocale = false;
+            $scope.selectedDefaultLocale = $scope.manifest2.default_locale;
+            delete $scope.manifest2.default_locale;
+        }
+    };
+    
+    $scope.setDefaultLocale = function() {
+        $scope.manifest2.default_locale = $scope.selectedDefaultLocale;
     }
     
 }).directive('ngVisible', function() {
