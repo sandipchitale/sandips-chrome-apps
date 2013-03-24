@@ -1,12 +1,17 @@
+#header {
+	font-family: Verdana, Arial, sans-serif;
+	color: #fff;
+	padding: 5px;
+	background-image: url('header.png');
+	-webkit-app-region: drag;
+}
+
 #editor {
 	width: 100%;
 	height: 100%;
 	font-family: "Courier New", monospace;
 }
 
-.indent {
-	padding-left: 10px;	
-}
 #preview {
 	width: 100%;
 	height: 100%;
