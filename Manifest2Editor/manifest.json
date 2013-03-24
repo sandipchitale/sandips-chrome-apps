@@ -1,0 +1,18 @@
+{
+	"manifest_version": 2,
+	"name": "Manifest2Editor App",
+	"description": "Manifest Version 2 Editor .",
+	"version": "0.1",
+	"app": {
+		"background": {
+			"page": "background.html"
+		}
+	},
+	"sandbox": {
+		"pages": ["manifest2editor.html"]
+	},
+	"icons": {
+		"16": "manifest2editor16.png",
+		"128": "manifest2editor128.png"
+	}
+}
