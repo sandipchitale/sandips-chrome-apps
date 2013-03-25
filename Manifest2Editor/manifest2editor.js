@@ -1,4 +1,8 @@
 angular.module('Manifest2EditorApp', []).controller('Manifest2EditorController', function($scope) {
+    $scope.close = function() {
+        window.close();
+    }
+    
     $scope.manifest2 = {
         'name' : 'App Name',
         'version' : '0.0.1',

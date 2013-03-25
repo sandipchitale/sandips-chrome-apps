@@ -13,43 +13,55 @@
 				height: 100%;
             }
 			.body-background {
-				background-color: #D1D1D1;
+				background-color: #111;
 			}
         </style>
     </head>
     <body class="body-background" ng-controller="Manifest2EditorController">
         <div id="header">
-            Manifest Version 2 Editor
+            <table style="width:100%">
+                <tr>
+                    <td>
+                         <h4><img src="manifest2editor32.png"></img>  Manifest Version 2 Editor </h4>
+                    </td>
+                    <td class="text-right">
+                        <i id="close-button" class="icon-remove icon-white" ng-click="close()"></i>&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
         </div>
         <div style="height:100%;" class="container-fluid">
-            <div style="height:100%;" class="row-fluid">
+            <div style="height:100%;padding-top: 10px;" class="row-fluid">
                 <div style="height:100%;" class="span6">
-                    <button class="btn">
-                        <i class="icon-upload"></i> Load...
-                    </button>
-                    <button class="btn">
-                        <i class="i"con-repeat"></i> Reload
-                    </button>
-                    <div style="overflow-y: scroll !important;" class="well well-small" id="name-property">
+                    <div class="text-right">
+                        <button class="btn">
+                            <i class="icon-upload"></i> Load...
+                        </button>
+                        <button class="btn">
+                            <i class="i"con-repeat"></i> Reload
+                        </button>
+                    </div>
+                    <br/>
+                    <div style="overflow-y: scroll !important;padding-top: 10px;" class="well well-small" id="name-property">
                         <table class="table table-condensed">
                             <tr>
                                 <td><span>Name : </span></td>
                                 <td>
-                                <input type="text" ng-model="manifest2.name"/>
-                                </input></br></td>
+                                <input spellcheck="false" type="text" ng-model="manifest2.name"/>
+                                </input></td>
                             </tr>
                             <tr>
                                 <td><span>Version : </span></td>
                                 <td>
-                                <input type="text" ng-model="manifest2.version"/>
-                                </input></br></td>
+                                <input spellcheck="false" type="text" ng-model="manifest2.version"/>
+                                </input></td>
                             </tr>
                             <tr>
                                 <td><label class="checkbox">
-                                    <input type="checkbox" ng-click="computeHasDescription($event)" ng-model="hasDescription">
+                                    <input spellcheck="true" type="checkbox" ng-click="computeHasDescription($event)" ng-model="hasDescription">
                                     </input>&nbsp;Description <a href="https://developer.chrome.com/apps/manifest.html#description" target="manifest_format">?</a> </label></td>
                                 <td>
-                                <input type="text" ng-model="manifest2.description" ng-visible="hasDescription" />
+                                <input spellcheck="true" type="text" ng-model="manifest2.description" ng-visible="hasDescription" />
                                 </input> </td>
                             </tr>
                             <tr>
@@ -57,7 +69,7 @@
                                     <input type="checkbox" ng-click="computeHasHomePageUrl($event)" ng-model="hasHomePageUrl">
                                     </input>&nbsp;Home Page Url <a href="https://developer.chrome.com/apps/manifest.html#homepage_url" target="manifest_format">?</a> </label></td>
                                 <td>
-                                <input type="text" ng-model="manifest2.homepage_url" ng-visible="hasHomePageUrl" />
+                                <input spellcheck="false" type="text" ng-model="manifest2.homepage_url" ng-visible="hasHomePageUrl" />
                                 </input> </td>
                             </tr>
                             <tr>
@@ -78,11 +90,11 @@
                                         <tr ng-repeat='(iconSize, iconUrl) in iconsCopy'>
                                             <td ><span>{{iconSize}}x{{iconSize}} :</span></td>
                                             <td>
-                                            <input type="text" ng-model="manifest2.icons[iconSize]" />
+                                            <input spellcheck="false" type="text" ng-model="manifest2.icons[iconSize]" />
                                             </td>
                                             <td><i class="icon-remove-sign" ng-click="removeIcon(iconSize)"></i></td>
                                         </tr>
-                                    </table><select ng-model="selectedIconSize" ng-options="iconSize for iconSize in ['16', '48', '128']" ></select><i class="icon-plus-sign" ng-click="addIcon(selectedIconSize)"></i></td>                                   
+                                    </table><select ng-model="selectedIconSize" ng-options="iconSize for iconSize in ['16', '48', '128']" ></select><i class="icon-plus-sign" ng-click="addIcon(selectedIconSize)"></i></td>
                                 </div>
                             </tr>
                             <tr>
@@ -101,7 +113,7 @@
                                     </table>
                                         <select ng-model="selectedPermission" ng-change="addPermission(selectedPermission)"
 ng-options="permission for permission in ['background', 'clipboardRead', 'clipboardWrite', 'webview','contextMenus', 'pointerLock', 'tts', 'filesystem', 'storage', 'unlimitedStorage', 'pointerLock', 'idle', 'filesystem', 'experimental']" >
-                                        </select></td>                                   
+                                        </select></td>
                                 </div>
                             </tr>
                             <tr>
@@ -113,15 +125,18 @@ ng-options="permission for permission in ['background', 'clipboardRead', 'clipbo
                     </div>
                 </div>
                 <div class="span6">
-                    <button class="btn">
-                        <i class="icon-download"></i> Save
-                    </button>
-                    <button class="btn">
-                        <i class="icon-download-alt"></i> Save As...
-                    </button>
-                    <button class="btn">
-                        <i class="icon-camera"></i> Copy
-                    </button>
+                    <div class="text-right">
+                        <button class="btn">
+                            <i class="icon-download"></i> Save
+                        </button>
+                        <button class="btn">
+                            <i class="icon-download-alt"></i> Save As...
+                        </button>
+                        <button class="btn">
+                            <i class="icon-camera"></i> Copy
+                        </button>
+                    </div>
+                    <br/>
                     <div style="overflow-y: scroll;" class="well well-small" id="#preview">
                         <pre id="#preview">{{manifest2|json}}</pre>
                     </div>
