@@ -125,12 +125,4 @@ angular.module('Manifest2EditorApp', []).controller('Manifest2EditorController',
             element.css('visibility', visible ? 'visible' : 'hidden');
         });
     };
-}).directive('jsonproperty', function() {
-    return {
-        restrict : "E",
-        scope : {
-            name : "@"
-        },
-        template: '<div>{{name}}</div>'    
-    };
 });
