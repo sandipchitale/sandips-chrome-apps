@@ -67,6 +67,35 @@ angular.module('Manifest2EditorApp', []).controller('Manifest2EditorController',
     }
     
     
+    $scope.hasPermissions = false;
+    $scope.permissions = [];
+
+    $scope.computeHasPermissions = function($event) {
+        var checkbox = $event.target;
+        if (checkbox.checked) {
+            $scope.manifest2.permissions = $scope.permissions;
+            $scope.hasPermissions = true;
+        } else {
+            $scope.hasPermissions = false;
+            $scope.permissions = $scope.manifest2.permissions;
+            delete $scope.manifest2.permissions;
+            delete $scope.permissionsCopy;
+        }
+    };
+    
+    $scope.removePermission = function(index) {
+        $scope.manifest2.permissions.splice(index, 1);
+    }
+    
+    $scope.selectedPermission = 'background';
+
+    $scope.addPermission = function(permission) {
+        if ($scope.manifest2.permissions.indexOf(permission) === -1) {
+            $scope.manifest2.permissions.push(permission);
+        }
+    }
+
+    
     $scope.hasDefaultLocale = false;
     $scope.selectedDefaultLocale = 'en';
     

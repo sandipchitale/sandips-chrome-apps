@@ -9,6 +9,9 @@
         <link href="manifest2editor.css" rel="stylesheet" type="text/css">
 
         <style type='text/css'>
+            html, body {
+				height: 100%;
+            }
 			.body-background {
 				background-color: #D1D1D1;
 			}
@@ -18,16 +21,16 @@
         <div id="header">
             Manifest Version 2 Editor
         </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span6">
+        <div style="height:100%;" class="container-fluid">
+            <div style="height:100%;" class="row-fluid">
+                <div style="height:100%;" class="span6">
                     <button class="btn">
                         <i class="icon-upload"></i> Load...
                     </button>
                     <button class="btn">
-                        <i class="icon-repeat"></i> Reload
+                        <i class="i"con-repeat"></i> Reload
                     </button>
-                    <div class="well well-small" id="name-property">
+                    <div style="overflow-y: scroll !important;" class="well well-small" id="name-property">
                         <table class="table table-condensed">
                             <tr>
                                 <td><span>Name : </span></td>
@@ -82,8 +85,31 @@
                                     </table><select ng-model="selectedIconSize" ng-options="iconSize for iconSize in ['16', '48', '128']" ></select><i class="icon-plus-sign" ng-click="addIcon(selectedIconSize)"></i></td>                                   
                                 </div>
                             </tr>
+                            <tr>
+                                <td><label class="checkbox">
+                                    <input type="checkbox" ng-click="computeHasPermissions($event)" ng-model="hasPermissions">
+                                    </input>&nbsp;Permissions <a href="https://developer.chrome.com/apps/declare_permissions.html" target="manifest_format">?</a> </label></td>
+                                <td>
+                                <div ng-show="hasPermissions">
+                                    <table class="table table-condensed">
+                                        <tr ng-repeat='permission in manifest2.permissions'>
+                                            <td>
+                                            {{permission}}
+                                            </td>
+                                            <td><i class="icon-remove-sign" ng-click="removePermission($index)"></i></td>
+                                        </tr>
+                                    </table>
+                                        <select ng-model="selectedPermission" ng-change="addPermission(selectedPermission)"
+ng-options="permission for permission in ['background', 'clipboardRead', 'clipboardWrite', 'webview','contextMenus', 'pointerLock', 'tts', 'filesystem', 'storage', 'unlimitedStorage', 'pointerLock', 'idle', 'filesystem', 'experimental']" >
+                                        </select></td>                                   
+                                </div>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="https://developer.chrome.com/apps/manifest.html" target="manifest_format">Manifest file format</a>
+                                </td>
+                            </tr>
                         </table>
-                        <a href="https://developer.chrome.com/apps/manifest.html" target="manifest_format">Manifest file format</a>
                     </div>
                 </div>
                 <div class="span6">
@@ -96,7 +122,7 @@
                     <button class="btn">
                         <i class="icon-camera"></i> Copy
                     </button>
-                    <div class="well well-small" id="#preview">
+                    <div style="overflow-y: scroll;" class="well well-small" id="#preview">
                         <pre id="#preview">{{manifest2|json}}</pre>
                     </div>
                 </div>

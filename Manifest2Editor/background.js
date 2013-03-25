@@ -9,7 +9,7 @@ chrome.app.runtime.onRestarted.addListener(function() {
 function runApp() {
     chrome.app.window.create('manifest2editor.html', {
         'width' : 1100,
-        'height' : 500,
+        'height' : 700,
         'frame' : 'none'
     });
 }
