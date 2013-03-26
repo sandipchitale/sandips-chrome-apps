@@ -4,8 +4,9 @@ angular.module('JSON', []).directive("editproperty", function() {
         scope : {
             object : '='
         },
-        template : 
-'<div><input type="text" ng-model="propertyName" placeholder="property name"/>:<input type="text" ng-model="propertyValue" placeholder="value"/><input type="checkbox" ng-model="overwrite" title="Overwrite"><button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}">{{operation}}</button><button ng-visible="removeVisible" ng-click="removeProperty()">-</button></div>',
+        templateUrl: 'JSON.html',
+//        template : 
+//'<div><input type="text" ng-model="propertyName" placeholder="property name"/>:<input type="text" ng-model="propertyValue" placeholder="value"/><input type="checkbox" ng-model="overwrite" title="Overwrite"><button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}">{{operation}}</button><button ng-visible="removeVisible" ng-click="removeProperty()">-</button></div>',
         controller : function($scope) {
             $scope.propertyName = '';
             $scope.propertyValue = '';
