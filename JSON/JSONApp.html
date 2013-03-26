@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="JSONApp">
+    <head></head>
+    <body>
+        <div >
+            <div ng-controller="JSONController">
+                <pre>
+{{person|json}}
+                </pre>
+                <editproperty object="person"></editproperty>
+                <editproperty object="person"></editproperty>
+                <editproperty object="person"></editproperty>
+                <editproperty object="person"></editproperty>
+            </div>
+        </div>
+        <script src="angular-1.1.0.min.js"></script>
+        <script src="JSON.js"></script>
+        <script src="JSONApp.js"></script>
+    </body>
+</html>
