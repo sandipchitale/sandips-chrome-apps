@@ -6,7 +6,7 @@ angular.module('JSON', []).directive("editproperty", function() {
         },
         templateUrl: 'JSON.html',
 //        template : 
-//'<div><input type="text" ng-model="propertyName" placeholder="property name"/>:<input type="text" ng-model="propertyValue" placeholder="value"/><input type="checkbox" ng-model="overwrite" title="Overwrite"><button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}">{{operation}}</button><button ng-visible="removeVisible" ng-click="removeProperty()">-</button></div>',
+//'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" placeholder="value"/> <input type="checkbox" ng-model="overwrite" title="Overwrite"> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"> {{operation}} </button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"> - </button> </div>',
         controller : function($scope) {
             $scope.propertyName = '';
             $scope.propertyValue = '';
