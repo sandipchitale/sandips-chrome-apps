@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="JSONApp">
-    <head></head>
+    <head>
+        <style>
+            .dim {
+                color: #888;
+            }
+            .code {
+                font-family: monospace;
+            }
+        </style>
+    </head>
     <body>
         <div >
             <div ng-controller="JSONController">
+                <span class="dim">The following is output of <span class="code" ng:non-bindable>{{person|json}}</span> (suitable for copying):</span>
                 <pre>
 {{person|json}}
                 </pre>
+                <span class="dim">The following is output of <span class="code" ng:non-bindable>&lt;editobject object=&quot;person&quot;&gt;&lt;/editobject&gt;</span>:</span>
                 <editobject object="person"></editobject>
+                <span class="dim">The following is output of <span class="code" ng:non-bindable>&lt;editproperty object=&quot;person&quot;&gt;&lt;/editproperty&gt;</span>:</span>
                 <editproperty object="person"></editproperty>
             </div>
         </div>
