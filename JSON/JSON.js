@@ -6,7 +6,7 @@ angular.module('JSON', []).directive("editobject", function() {
         },
         templateUrl: 'editobject.html',
 //        template :
-//'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;<button ng-click="removeProperty(p)" title="Remove"> - </button>{{comma($index)}}\'{{p}}\' : {{valueToSet(v)}}</nobr><br></span>}</pre>',
+//'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;<button ng-click="removeProperty(p)" title="Remove"> - </button>{{comma($index)}}"{{p}}": {{valueToSet(v)}}</nobr><br></span>}</pre>',
         controller : function($scope) {
             $scope.removeProperty = function(p) {
                 delete $scope.object[p];
