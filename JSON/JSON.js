@@ -1,24 +1,24 @@
 angular.module('JSON', []).directive("editobjectproperty", function() {
     return {
         restrict : 'E',
+        templateUrl: 'editobjectproperty.html',
+//      template :
+//'<editobject object="object"></editobject><editproperty object="object"></editproperty>',
         scope : {
             object : '='
-        },
-        templateUrl: 'editobjectproperty.html',
-//        template :
-//'<editobject object="object"></editobject><editproperty object="object"></editproperty>',
-    }
+        }
+    };
 }).directive("editobject", function() {
     return {
         restrict : 'E',
-        scope : {
-            object : '='
-        },
-       templateUrl: 'editobject.html',
+        templateUrl: 'editobject.html',
 //        template :
 //'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;"{{p}}": <input type="text" ng-model="v" editenter="updateProperty(p,v)" placeholder="value" title="Type ENTER to change value"></input>{{comma($last)}} <button ng-click="removeProperty(p)" title="Remove"><b> - </b></button></nobr><br></span>}</pre>',
+         scope : {
+             object : '='
+         },
         controller : function($scope) {
-            $scope.updateProperty = function(p,v) {
+            $scope.updateProperty = function(p, v) {
                 $scope.object[p] = $scope.valueToSet(v);
             };
 
@@ -37,22 +37,22 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
                     }
                 }
                 return value;
-            }
+            };
 
             $scope.comma = function(last) {
-                return (last ? '' : ',');
-            }
+                return ( last ? '' : ',');
+            };
         }
-    }
+    };
 }).directive("editproperty", function() {
     return {
         restrict : 'E',
-        scope : {
-            object : '='
-        },
         templateUrl: 'editproperty.html',
 //        template :
 //'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" placeholder="value"/> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button> </div>',
+        scope : {
+            object : '='
+        },
         controller : function($scope) {
             $scope.propertyName = '';
             $scope.propertyValue = '';
@@ -121,7 +121,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
 
             adjustAddUpdateDisabled();
         }
-    }
+    };
 }).directive('ngVisible', function() {
     return function(scope, element, attr) {
         scope.$watch(attr.ngVisible, function(visible) {
@@ -136,5 +136,5 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
                 scope.$apply(attrs.editenter);
             }
         });
-    }
+    };
 });
