@@ -74,6 +74,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
                         $scope.removeVisible = true;
                         if (valueToSet($scope.propertyValue) === $scope.object[$scope.propertyName]) {
                             $scope.addUpdateDisabled = true;
+                            $scope.operationTitle += ' (change value to enable)';
                         }
                     } else {
                         $scope.operation = '+';
