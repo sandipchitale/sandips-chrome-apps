@@ -1,1 +1,1 @@
-<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;<button ng-click="removeProperty(p)" title="Remove"> - </button>"{{p}}": {{valueToSet(v)}}{{comma($last)}}</nobr><br></span>}</pre>
+<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;<button ng-click="removeProperty(p)" title="Remove"> - </button>"{{p}}": <input type="text" ng-model="v" ng-enter="updateProperty(p,v)"></input>{{comma($last)}}</nobr><br></span>}</pre>
