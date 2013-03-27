@@ -16,12 +16,12 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
         },
        templateUrl: 'editobject.html',
 //        template :
-//'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;<button ng-click="removeProperty(p)" title="Remove"> - </button>"{{p}}": <input type="text" ng-model="v" ng-enter="updateProperty(p,v)"></input>{{comma($last)}}</nobr><br></span>}</pre>',
+//'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;"{{p}}": <input type="text" ng-model="v" editenter="updateProperty(p,v)" placeholder="value" title="Type ENTER to change value"></input>{{comma($last)}} <button ng-click="removeProperty(p)" title="Remove"> - </button></nobr><br></span>}</pre>',
         controller : function($scope) {
             $scope.updateProperty = function(p,v) {
                 $scope.object[p] = $scope.valueToSet(v);
             };
-            
+
             $scope.removeProperty = function(p) {
                 delete $scope.object[p];
             };
@@ -127,13 +127,13 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
             element.css('visibility', visible ? 'visible' : 'hidden');
         });
     };
-}).directive('ngEnter', function() {
+}).directive('editenter', function() {
     return function(scope, elm, attrs) {
         elm.bind('keypress', function(e) {
             if (e.charCode === 13) {
-                scope.v = this.value;
-                scope.$apply(attrs.ngEnter);
+                scope[attrs.ngModel] = this.value;
+                scope.$apply(attrs.editenter);
             }
         });
-    };
+    }
 });
