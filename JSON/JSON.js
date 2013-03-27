@@ -49,7 +49,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
         restrict : 'E',
         templateUrl: 'editproperty.html',
 //        template :
-//'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" placeholder="value"/> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button> </div>',
+//'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button> </div>',
         scope : {
             object : '='
         },
