@@ -1,4 +1,14 @@
-angular.module('JSON', []).directive("editobject", function() {
+angular.module('JSON', []).directive("editobjectproperty", function() {
+    return {
+        restrict : 'E',
+        scope : {
+            object : '='
+        },
+templateUrl: 'editobjectproperty.html',
+//        template :
+//'<editobject object="object"></editobject><editproperty object="object"></editproperty>',
+    }
+}).directive("editobject", function() {
     return {
         restrict : 'E',
         scope : {
