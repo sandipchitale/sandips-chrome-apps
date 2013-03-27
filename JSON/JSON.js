@@ -33,7 +33,7 @@ templateUrl: 'editobjectproperty.html',
                         return i;
                     }
                 }
-                return "'" + value + "'";
+                return '"' + value + '"';
             }
             
             $scope.comma = function(last) {
