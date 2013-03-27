@@ -131,7 +131,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
 }).directive('editenter', function() {
     return function(scope, elm, attrs) {
         elm.bind('keypress', function(e) {
-            if (e.charCode === 13) {
+            if (e.keyCode === 13) {
                 scope[attrs.ngModel] = this.value;
                 scope.$apply(attrs.editenter);
             }
