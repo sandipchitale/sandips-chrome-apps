@@ -4,7 +4,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
         scope : {
             object : '='
         },
-templateUrl: 'editobjectproperty.html',
+        templateUrl: 'editobjectproperty.html',
 //        template :
 //'<editobject object="object"></editobject><editproperty object="object"></editproperty>',
     }
@@ -14,7 +14,7 @@ templateUrl: 'editobjectproperty.html',
         scope : {
             object : '='
         },
-        templateUrl: 'editobject.html',
+       templateUrl: 'editobject.html',
 //        template :
 //'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;<button ng-click="removeProperty(p)" title="Remove"> - </button>"{{p}}": {{valueToSet(v)}}{{comma($last)}}</nobr><br></span>}</pre>',
         controller : function($scope) {
@@ -22,7 +22,7 @@ templateUrl: 'editobjectproperty.html',
                 delete $scope.object[p];
                 $scope.propertyName = '';
             };
-            
+
             $scope.valueToSet = function(value) {
                 var f = parseFloat(value);
                 if (f !== NaN && f == value) {
@@ -35,10 +35,10 @@ templateUrl: 'editobjectproperty.html',
                 }
                 return '"' + value + '"';
             }
-            
+
             $scope.comma = function(last) {
                 return (last ? '' : ',');
-            } 
+            }
         }
     }
 }).directive("editproperty", function() {
@@ -49,30 +49,34 @@ templateUrl: 'editobjectproperty.html',
         },
         templateUrl: 'editproperty.html',
 //        template :
-//'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" placeholder="value"/> <input type="checkbox" ng-model="overwrite" title="Overwrite"> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"> {{operation}} </button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"> - </button> </div>',
+//'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" placeholder="value"/> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"> {{operation}} </button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"> - </button> </div>',
         controller : function($scope) {
             $scope.propertyName = '';
             $scope.propertyValue = '';
-            $scope.overwrite = false;
             $scope.operation = '+';
             $scope.operationTitle = 'Add';
             $scope.removeVisibility = false;
-            
+
             function adjustAddUpdateDisabled() {
                 $scope.addUpdateDisabled = false;
                 if ($scope.propertyName === '') {
                     $scope.addUpdateDisabled = true;
                 } else {
                     if ($scope.object.hasOwnProperty($scope.propertyName)) {
+                        $scope.operation = '=';
+                        $scope.operationTitle = 'Update';
+                        $scope.removeVisible = true;
                         if (valueToSet($scope.propertyValue) === $scope.object[$scope.propertyName]) {
                             $scope.addUpdateDisabled = true;
-                        } else if (!$scope.overwrite) {
-                            $scope.addUpdateDisabled = true;
                         }
+                    } else {
+                        $scope.operation = '+';
+                        $scope.operationTitle = 'Add';
+                        $scope.removeVisible = false;
                     }
                 }
             }
-            
+
             function valueToSet(value) {
                 var f = parseFloat(value);
                 if (f !== NaN && f == value) {
@@ -85,40 +89,27 @@ templateUrl: 'editobjectproperty.html',
                 }
                 return value;
             }
-            $scope.$watch('propertyName', function(propertyName) {
-                if ($scope.object.hasOwnProperty(propertyName)) {
-                    $scope.propertyValue = $scope.object[propertyName];
-                    $scope.overwrite = true;
-                    $scope.operation = '=';
-                    $scope.operationTitle = 'Update';
-                    $scope.addUpdateDisabled = true;
-                    $scope.removeVisible = true;
+            $scope.$watch('propertyName', function() {
+                if ($scope.propertyName !== '' && $scope.object.hasOwnProperty($scope.propertyName)) {
+                    $scope.propertyValue = $scope.object[$scope.propertyName];
                 } else {
                     $scope.propertyValue = '';
-                    $scope.overwrite = false;
-                    $scope.operation = '+';
-                    $scope.operationTitle = 'Add';
-                    $scope.removeVisible = false;
                 }
                 adjustAddUpdateDisabled();
             });
-            
+
             $scope.$watch('propertyValue', adjustAddUpdateDisabled);
-            
-            $scope.$watch('overwrite', adjustAddUpdateDisabled);
-            
+
             $scope.addProperty = function() {
-                if ($scope.propertyName && ($scope.overwrite || (!$scope.object.hasOwnProperty($scope.propertyName)))) {
-                    $scope.object[$scope.propertyName] = valueToSet($scope.propertyValue);
-                }
-                if (!$scope.overwrite) {
-                    $scope.propertyName = '';
-                    $scope.propertyValue = ''; 
-                }
+                $scope.object[$scope.propertyName] = valueToSet($scope.propertyValue);
+                adjustAddUpdateDisabled();
             };
             $scope.removeProperty = function() {
                 delete $scope.object[$scope.propertyName];
                 $scope.propertyName = '';
+                $scope.propertyValue = '';
+
+                adjustAddUpdateDisabled();
             };
 
             adjustAddUpdateDisabled();
