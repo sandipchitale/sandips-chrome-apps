@@ -61,6 +61,9 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
                 $scope.addUpdateDisabled = false;
                 if ($scope.propertyName === '') {
                     $scope.addUpdateDisabled = true;
+                    $scope.operation = '+';
+                    $scope.operationTitle = 'Add';
+                    $scope.removeVisible = false;
                 } else {
                     if ($scope.object.hasOwnProperty($scope.propertyName)) {
                         $scope.operation = '=';
