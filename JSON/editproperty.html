@@ -3,9 +3,9 @@
     :
     <input type="text" ng-model="propertyValue" placeholder="value"/>
     <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}">
-        {{operation}}
+        <b>&nbsp;{{operation}}&nbsp;</b>
     </button>
     <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove">
-        -
+       <b>&nbsp;-&nbsp;</b>
     </button>
 </div>

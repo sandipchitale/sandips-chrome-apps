@@ -16,7 +16,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
         },
        templateUrl: 'editobject.html',
 //        template :
-//'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;"{{p}}": <input type="text" ng-model="v" editenter="updateProperty(p,v)" placeholder="value" title="Type ENTER to change value"></input>{{comma($last)}} <button ng-click="removeProperty(p)" title="Remove"> - </button></nobr><br></span>}</pre>',
+//'<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;"{{p}}": <input type="text" ng-model="v" editenter="updateProperty(p,v)" placeholder="value" title="Type ENTER to change value"></input>{{comma($last)}} <button ng-click="removeProperty(p)" title="Remove"><b> - </b></button></nobr><br></span>}</pre>',
         controller : function($scope) {
             $scope.updateProperty = function(p,v) {
                 $scope.object[p] = $scope.valueToSet(v);
@@ -52,7 +52,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
         },
         templateUrl: 'editproperty.html',
 //        template :
-//'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" placeholder="value"/> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"> {{operation}} </button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"> - </button> </div>',
+//'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-model="propertyValue" placeholder="value"/> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button> <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button> </div>',
         controller : function($scope) {
             $scope.propertyName = '';
             $scope.propertyValue = '';
@@ -74,7 +74,7 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
                         $scope.removeVisible = true;
                         if (valueToSet($scope.propertyValue) === $scope.object[$scope.propertyName]) {
                             $scope.addUpdateDisabled = true;
-                            $scope.operationTitle += ' (change value to enable)';
+                            $scope.operationTitle += '(change value to enable)';
                         }
                     } else {
                         $scope.operation = '+';
