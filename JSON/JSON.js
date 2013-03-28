@@ -1,4 +1,4 @@
-angular.module('JSON', []).directive("editobjectproperty", function() {
+angular.module('JSON', []).directive("editobjectproperty", function($templateCache) {
     var template =
 '<editobject object="object"></editobject><editproperty object="object"></editproperty>';
     $templateCache.put('editobjectproperty.html', template);
@@ -14,13 +14,13 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
             object : '='
         }
     };
-}).directive("editobject", function() {
+}).directive("editobject", function($templateCache) {
     var template =
 '<pre>{<br/><span ng-repeat="(p,v) in object"><nobr>&nbsp;&nbsp;"{{p}}": <input type="text" ng-model="v" editenter="updateProperty(p,v)" placeholder="value" title="Type ENTER to update value"></input>{{comma($last)}} <button ng-click="removeProperty(p)" title="Remove"><b> - </b></button></nobr><br></span>}</pre>';
-    //$templateCache.put('editobject.html', template);
+    $templateCache.put('editobject.html', template);
     return {
         restrict : 'E',
-        /*
+        //*
         templateUrl: 'editobject.html',
         /*/
         template : template,
