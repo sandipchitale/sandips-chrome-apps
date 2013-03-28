@@ -17,13 +17,22 @@
                 <span class="dim">The following is output of <span class="code" ng:non-bindable>&lt;editproperty object=&quot;person&quot;&gt;&lt;/editproperty&gt;</span>:</span>
                 <editproperty object="person"></editproperty>
                 <br/>
+                <br/>
+                <br/>
+                <br/>
                 <hr/>
+                <label><input type="checkbox" ng-model="showeditobjectproperty"/>Show editobjectproperty example</label>
+                <div ng-show="showeditobjectproperty">
                 <span class="dim">The following is output of 
                 <span class="code" ng:non-bindable>&lt;editobjectproperty object=&quot;person&quot;&gt;&lt;/editobjectproperty&gt;</span> which is a composition of the other two:</span>
                 <editobjectproperty object="person"></editobjectproperty>
-                <hr/>
+                </div>
+                <br/>
+                <label><input type="checkbox" ng-model="showeditobject"/>Show editobject example</label>
+                <div ng-show="showeditobject">
                 <span class="dim">The following is output of <span class="code" ng:non-bindable>&lt;editobject object=&quot;person&quot;&gt;&lt;/editobject&gt;</span>:</span>
                 <editobject object="person"></editobject>
+                </div>
             </div>
         </div>
         <script src="angular-1.1.0.min.js"></script>
