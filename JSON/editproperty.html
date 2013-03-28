@@ -1,11 +1,14 @@
 <div>
-    <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select>
-    :
-    <input type="text" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/>
+    <input type="text" ng-model="propertyName" placeholder="property name"/>
+    <select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span>
+    <input type="text" ng-hide="objectValue" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/>
+    <span ng-hide="objectValue"> | </span><label>
+        <input type="checkbox" ng-model="objectValue" title="Add object">
+        </input>{}</label>
     <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}">
-        <b>&nbsp;{{operation}}&nbsp;</b>
+        <b>{{operation}}</b>
     </button>
     <button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove">
-       <b>&nbsp;-&nbsp;</b>
+        <b>-</b>
     </button>
 </div>
