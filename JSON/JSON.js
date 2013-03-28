@@ -49,14 +49,19 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
         restrict : 'E',
         // templateUrl: 'editproperty.html',
         template :
-'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-hide="objectValue" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><span ng-hide="objectValue"> | </span> <label><input type="checkbox" ng-model="objectValue" title="Add object"></input>{}</label> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button></div>',
+'<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-show="isPrimitiveValue()" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><span style="font-family: monospace;" ng-show="isObjectValue()"> {} </span><span style="font-family: monospace;" ng-show="isArrayValue()"> [] </span><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select> <label></label> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button></div>',
         scope : {
             object : '='
         },
         controller : function($scope) {
             $scope.propertyName = '';
             $scope.propertyValue = '';
-            $scope.objectValue = false;
+            $scope.valueTypeEnum = [
+                'Primitive',
+                'Object',
+                'Array'
+            ];
+            $scope.valueType = $scope.valueTypeEnum[0];
             $scope.operation = '+';
             $scope.operationTitle = 'Add';
             $scope.removeVisibility = false;
@@ -97,6 +102,19 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
                 }
                 return value;
             }
+            
+            $scope.isPrimitiveValue = function() {
+                return ($scope.valueType === $scope.valueTypeEnum[0]);
+            }
+
+            $scope.isObjectValue = function() {
+                return ($scope.valueType === $scope.valueTypeEnum[1]);
+            }
+
+            $scope.isArrayValue = function() {
+                return ($scope.valueType === $scope.valueTypeEnum[2]);
+            }
+            
             $scope.$watch('propertyName', function() {
                 if ($scope.propertyName !== '' && $scope.object.hasOwnProperty($scope.propertyName)) {
                     $scope.propertyValue = $scope.object[$scope.propertyName];
@@ -107,24 +125,36 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
             });
 
             $scope.$watch('propertyValue', function() {
-                $scope.objectValue = (typeof $scope.propertyValue === 'object');
+                if ($scope.propertyValue instanceof Array) {
+                    $scope.valueType = $scope.valueTypeEnum[2];
+                } else if (typeof $scope.propertyValue === 'object') {
+                    $scope.valueType = $scope.valueTypeEnum[1];
+                } else {
+                    $scope.valueType = $scope.valueTypeEnum[0];
+                }
                 adjustAddUpdateDisabled();
             });
             
-            $scope.$watch('objectValue', function() {
-                if (!$scope.objectValue) {
-                    if (typeof $scope.propertyValue === 'object') {
-                        $scope.propertyValue = '';
+            $scope.$watch('valueType', function() {
+                if ($scope.valueType === $scope.valueTypeEnum[2]) {
+                    if (!($scope.propertyValue instanceof Array)) {
+                        $scope.propertyValue = [];
                     }
-                } else {
+                } else if ($scope.valueType === $scope.valueTypeEnum[1]) {
                     if (typeof $scope.propertyValue !== 'object') {
                         $scope.propertyValue = {};
+                    }
+                } else {
+                    if (typeof $scope.propertyValue === 'object' || $scope.propertyValue instanceof Array) {
+                        $scope.propertyValue = '';
                     }
                 }
             });
             
             $scope.addProperty = function() {
-                if ($scope.objectValue) {
+                if ($scope.valueType == $scope.valueTypeEnum[2]) {
+                    $scope.object[$scope.propertyName] = [];
+                } else if ($scope.valueType == $scope.valueTypeEnum[1]) {
                     $scope.object[$scope.propertyName] = {};
                 } else {
                     $scope.object[$scope.propertyName] = valueToSet($scope.propertyValue);
