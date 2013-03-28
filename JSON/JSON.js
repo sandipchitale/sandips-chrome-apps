@@ -1,11 +1,11 @@
 angular.module('JSON', []).directive("editobjectproperty", function() {
     var template =
 '<editobject object="object"></editobject><editproperty object="object"></editproperty>';
-    //$templateCache.put('editobjectproperty.html', template);
+    $templateCache.put('editobjectproperty.html', template);
 
     return {
         restrict : 'E',
-        /*
+        //*
         templateUrl: 'editobjectproperty.html',
         /*/
         template : template,
@@ -58,10 +58,10 @@ angular.module('JSON', []).directive("editobjectproperty", function() {
 }).directive("editproperty", function($templateCache) {
     var template = 
 '<div> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select> <label></label> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace; padding-left: 15px" ng-show="isObject()">{<br/>}</div><div style="font-family: monospace;; padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
-    //$templateCache.put('editproperty.html', template);
+    $templateCache.put('editproperty.html', template);
     return {
         restrict : 'E',
-        /*
+        ///*
         templateUrl: 'editproperty.html',
         /*/
         template : template,
