@@ -19,13 +19,13 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
     };
 }).directive("editpropertyvalue", function($templateCache) {
     // recursion template
-    var subObjectTemplate =
-'<div><div ng-repeat="subObject in propertyValueHolder"><editobject object="subObject"></editobject></div></div>'
-    $templateCache.put('editsubobject.html', subObjectTemplate);
+    var subPropertyValueTemplate =
+'<div><div ng-repeat="subObject in propertyValueHolder"><editobjectproperty object="subObject"></editobjectproperty></div></div>'
+    $templateCache.put('editsubpropertyvalue.html', subPropertyValueTemplate);
     
     // self template
     var template = 
-'<div><span style="padding-left:15px;">"{{propertyname}}": </span> <input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="updateProperty()" placeholder="value" title="Type ENTER to update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><button ng-disabled="addUpdateDisabled" ng-click="updateProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace;padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubobject.html\'"></div></div><div style="font-family: monospace;padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
+'<div><span style="padding-left:15px;">"{{propertyname}}": </span> <input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="updateProperty()" placeholder="value" title="Type ENTER to update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><button ng-disabled="addUpdateDisabled" ng-click="updateProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button></span><div style="font-family: monospace;padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubpropertyvalue.html\'"></div></div><div style="font-family: monospace;padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
     $templateCache.put('editpropertyvalue.html', template);
 
     return {
@@ -78,7 +78,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             }
             
             function watchPropertyValue() {
-                if ($scope.object instanceof Array) {
+                if ($scope.propertyValue instanceof Array) {
                     $scope.propertyValueHolder.splice(0,1);
                     $scope.valueType = $scope.valueTypeEnum[2];
                 } else if (typeof $scope.propertyValue === 'object') {
@@ -148,7 +148,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
 
     // self template
     var template = 
-'<div> <pre ng-hide="nojson">{{object|json}}</pre> <input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select> <label></label> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace; padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubobject.html\'"></div></div><div style="font-family: monospace;; padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
+'<div><pre ng-hide="nojson">{{object|json}}</pre><input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span> : </span> <input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select> <label></label> <button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace; padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubobject.html\'"></div></div><div style="font-family: monospace;; padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
     $templateCache.put('editproperty.html', template);
     
     return {
