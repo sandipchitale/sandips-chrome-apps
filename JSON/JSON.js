@@ -1,7 +1,7 @@
 angular.module('JSON', []).directive("editobject", function($templateCache) {
     // self template
     var template =
-'<pre>{<span ng-repeat="(propertyname,v) in object"><editpropertyvalue object="object"></editpropertyvalue></span>}</pre>';
+'<pre>{<span ng-repeat="propertyname in sortedKeysArray(object)"><editpropertyvalue object="object"></editpropertyvalue></span>}</pre>';
     $templateCache.put('editobject.html', template);
     
     return {
@@ -15,6 +15,21 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             object : '='
         },
         controller : function($scope) {
+            $scope.sortedKeysArray = function(o) {
+                var keysArray = [];
+                for (var prop in $scope.object) {
+                    if (typeof prop === 'function') {
+                        continue;
+                    }
+                    if (prop.indexOf('$$') == 0) {
+                        continue;
+                    }
+                    keysArray.push(prop);
+                }
+                return keysArray.sort(function (a, b) {
+                    return a.toLowerCase().localeCompare(b.toLowerCase());
+                });
+            }
         }
     };
 }).directive("editpropertyvalue", function($templateCache) {
