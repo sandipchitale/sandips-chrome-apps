@@ -148,7 +148,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
 
     // self template
     var template = 
-'<div><pre ng-hide="nojson">{{object|json}}</pre><input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object"></select><span>:</span><input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><label></label><button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace; padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubobject.html\'"></div></div><div style="font-family: monospace;; padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
+'<div><pre ng-hide="nojson">{{object|json}}</pre><input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object | removeDollarDollarProperties:this"></select><span>:</span><input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><label></label><button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace; padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubobject.html\'"></div></div><div style="font-family: monospace;; padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
     $templateCache.put('editproperty.html', template);
     
     return {
@@ -306,6 +306,16 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             object : '='
         }
     };
+}).filter('removeDollarDollarProperties', function() {
+    return function(input, scope) {
+        input = angular.copy(input);
+        angular.forEach( input, function(v,k)
+        {
+            if(k.indexOf('$$') == 0)
+                delete input[k];
+        });
+        return input;
+    }
 }).directive('ngVisible', function() {
     return function(scope, element, attr) {
         scope.$watch(attr.ngVisible, function(visible) {
