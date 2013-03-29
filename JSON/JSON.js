@@ -25,7 +25,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
     
     // self template
     var template = 
-'<div><span style="padding-left:15px;">"{{propertyname}}": </span><input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="updateProperty()" placeholder="value" title="Type ENTER to update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><button ng-disabled="addUpdateDisabled" ng-click="updateProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button></span><div style="font-family: monospace;padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubpropertyvalue.html\'"></div></div><div style="font-family: monospace;padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
+'<div><span style="padding-left:15px;">"{{propertyname}}": </span><input type="text" ng-show="isPrimitive()" ng-model="propertyValue" ng-change="propertyValueStyle={\'background-color\':\'yellow\'}" ng-style="propertyValueStyle" editenter="updateProperty()" placeholder="value" title="Type ENTER to update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button></span><div style="font-family: monospace;padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubpropertyvalue.html\'"></div></div><div style="font-family: monospace;padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
     $templateCache.put('editpropertyvalue.html', template);
 
     return {
@@ -42,6 +42,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             $scope.propertyname = $scope.$parent.propertyname;
             $scope.propertyValueHolder = [];
             $scope.propertyValue = $scope.object[$scope.propertyname];
+            $scope.propertyValueStyle = {};
             $scope.valueTypeEnum = [
                 'Primitive',
                 'Object',
@@ -50,16 +51,13 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             $scope.valueType = $scope.valueTypeEnum[0];
             $scope.operation = '=';
             $scope.operationTitle = 'Update';
-            $scope.addUpdateDisabled = false;
             $scope.removeVisibility = false;
 
             function adjustAddUpdateDisabled() {
-                $scope.addUpdateDisabled = false;
                 $scope.operation = '=';
                 $scope.operationTitle = 'Update';
                 $scope.removeVisible = true;
                 if (valueToSet($scope.propertyValue) === $scope.object[$scope.propertyname]) {
-                    $scope.addUpdateDisabled = true;
                     $scope.operationTitle += '(change value to enable)';
                 }
             }
@@ -122,6 +120,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             }
             
             $scope.updateProperty = function() {
+                $scope.propertyValueStyle = {};
                 if ($scope.valueType == $scope.valueTypeEnum[2]) {
                     $scope.object[$scope.propertyName] = [];
                 } else if ($scope.valueType == $scope.valueTypeEnum[1]) {
