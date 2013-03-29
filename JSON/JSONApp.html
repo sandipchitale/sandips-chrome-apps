@@ -13,8 +13,11 @@
     <body>
         <div >
             <div ng-controller="JSONController">
+                <label><input type="checkbox" ng-model="hideeditproperty"/>Hide editproperty example</label>
+                <div ng-hide="hideeditproperty">
                 <span class="dim">The following is output of <span class="code" ng:non-bindable>&lt;editproperty object=&quot;person&quot;&gt;&lt;/editproperty&gt;</span>:</span>
                 <editproperty object="person"></editproperty>
+                </div>
                 <hr/>
                 <label><input type="checkbox" ng-model="showeditobjectproperty"/>Show editobjectproperty example</label>
                 <div ng-show="showeditobjectproperty">
