@@ -252,11 +252,13 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
                     if (!($scope.propertyValue instanceof Array)) {
                         $scope.propertyValue = [];
                         $scope.addProperty();
+                        $scope.valueType = $scope.valueTypeEnum[0];
                     }
                 } else if ($scope.valueType === $scope.valueTypeEnum[1]) {
                     if (typeof $scope.propertyValue !== 'object') {
                         $scope.propertyValue = {};
                         $scope.addProperty();
+                        $scope.valueType = $scope.valueTypeEnum[0];
                     }
                 } else {
                     if (typeof $scope.propertyValue === 'object' || $scope.propertyValue instanceof Array) {
