@@ -148,7 +148,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
 
     // self template
     var template = 
-'<div><pre ng-hide="nojson">{{object|json}}</pre><input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-model="propertyName" ng-options="p as p for (p,v) in object | removeDollarDollarProperties:this"></select><span>:</span><input type="text" ng-show="isPrimitive()" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><select style="width:1.5em;" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><label></label><button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace; padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubobject.html\'"></div></div><div style="font-family: monospace;; padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
+'<div><pre ng-hide="nojson">{{object|json}}</pre><input type="text" ng-model="propertyName" placeholder="property name"/><select style="width:1.5em;" ng-hide="onlyadd" ng-model="propertyName" ng-options="p as p for (p,v) in object | removeDollarDollarProperties:this"></select><span>:</span><input type="text" ng-show="isPrimitive()" ng-disabled="onlyadd && addUpdateDisabled" ng-model="propertyValue" editenter="addProperty()" placeholder="value" title="Type ENTER to add/update"/><select style="width:1.5em;" ng-hide="onlyadd && addUpdateDisabled" ng-model="valueType" ng-options="vt for vt in valueTypeEnum"></select><label></label><button ng-disabled="addUpdateDisabled" ng-click="addProperty()" title="{{operationTitle}}"><b>{{operation}}</b></button><button ng-visible="removeVisible" ng-click="removeProperty()" title="Remove"><b>-</b></button><div style="font-family: monospace; padding-left: 15px" ng-show="isObject()"><div ng-include="\'editsubobject.html\'"></div></div><div style="font-family: monospace;; padding-left: 15px" ng-show="isArray()">[<br/>]</div></div>';
     $templateCache.put('editproperty.html', template);
     
     return {
@@ -160,7 +160,8 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
         //*/
         scope : {
             object : '=',
-            nojson: '@'
+            nojson: '@',
+            onlyadd: '@'
         },
         controller : function($scope) {
             $scope.propertyName = '';
@@ -186,12 +187,19 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
                     $scope.removeVisible = false;
                 } else {
                     if ($scope.object.hasOwnProperty($scope.propertyName)) {
-                        $scope.operation = '=';
-                        $scope.operationTitle = 'Update';
-                        $scope.removeVisible = true;
-                        if (valueToSet($scope.propertyValue) === $scope.object[$scope.propertyName]) {
+                        if ($scope.onlyadd) {
+                            $scope.operation = '+';
+                            $scope.operationTitle = 'Add';
                             $scope.addUpdateDisabled = true;
-                            $scope.operationTitle += '(change value to enable)';
+                            $scope.removeVisible = false;
+                        } else {
+                            $scope.operation = '=';
+                            $scope.operationTitle = 'Update';
+                            $scope.removeVisible = true;
+                            if (valueToSet($scope.propertyValue) === $scope.object[$scope.propertyName]) {
+                                $scope.addUpdateDisabled = true;
+                                $scope.operationTitle += '(change value to enable)';
+                            }                           
                         }
                     } else {
                         $scope.operation = '+';
@@ -270,8 +278,16 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             $scope.addProperty = function() {
                 if ($scope.valueType == $scope.valueTypeEnum[2]) {
                     $scope.object[$scope.propertyName] = [];
+                    if ($scope.onlyadd) {
+                        $scope.propertyName = '';
+                        $scope.propertyValue = '';
+                    }
                 } else if ($scope.valueType == $scope.valueTypeEnum[1]) {
                     $scope.object[$scope.propertyName] = {};
+                    if ($scope.onlyadd) {
+                        $scope.propertyName = '';
+                        $scope.propertyValue = '';
+                    }
                 } else {
                     $scope.object[$scope.propertyName] = valueToSet($scope.propertyValue);
                 }
@@ -292,7 +308,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
 }).directive("editobjectproperty", function($templateCache) {
     // self template
     var template =
-'<editobject object="object"></editobject><editproperty object="object" nojson="true"></editproperty>';
+'<editobject object="object"></editobject><editproperty object="object" nojson="true" onlyadd="true"></editproperty>';
     $templateCache.put('editobjectproperty.html', template);
 
     return {
