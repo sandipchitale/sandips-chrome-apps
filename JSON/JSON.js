@@ -26,9 +26,9 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
                     }
                     keysArray.push(prop);
                 }
-                return keysArray.sort(function (a, b) {
+                return keysArray.sort(/* function (a, b) {
                     return a.toLowerCase().localeCompare(b.toLowerCase());
-                });
+                } */);
             }
         }
     };
