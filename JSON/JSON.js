@@ -161,7 +161,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
         scope : {
             object : '=',
             nojson: '@',
-            onlyadd: '@'
+            onlyadd: '@',
         },
         controller : function($scope) {
             $scope.propertyName = '';
@@ -251,16 +251,12 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
                 if ($scope.valueType === $scope.valueTypeEnum[2]) {
                     if (!($scope.propertyValue instanceof Array)) {
                         $scope.propertyValue = [];
-                        if ($scope.onlyadd) {
-                            $scope.addProperty();
-                        }
+                        $scope.addProperty();
                     }
                 } else if ($scope.valueType === $scope.valueTypeEnum[1]) {
                     if (typeof $scope.propertyValue !== 'object') {
                         $scope.propertyValue = {};
-                        if ($scope.onlyadd) {
-                            $scope.addProperty();
-                        }
+                        $scope.addProperty();
                     }
                 } else {
                     if (typeof $scope.propertyValue === 'object' || $scope.propertyValue instanceof Array) {
