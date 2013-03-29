@@ -143,7 +143,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
     
     // recursion template
     var subTemplate =
-'<div><div ng-repeat="subProperty in $parent.propertyValueHolder"><editproperty object="subProperty"></editproperty></div></div>'
+'<div><div ng-repeat="subProperty in $parent.propertyValueHolder"><editproperty object="subProperty" nojson="true"></editproperty></div></div>'
     $templateCache.put('editsubobject.html', subTemplate);
 
     // self template
@@ -251,10 +251,16 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
                 if ($scope.valueType === $scope.valueTypeEnum[2]) {
                     if (!($scope.propertyValue instanceof Array)) {
                         $scope.propertyValue = [];
+                        if ($scope.onlyadd) {
+                            $scope.addProperty();
+                        }
                     }
                 } else if ($scope.valueType === $scope.valueTypeEnum[1]) {
                     if (typeof $scope.propertyValue !== 'object') {
                         $scope.propertyValue = {};
+                        if ($scope.onlyadd) {
+                            $scope.addProperty();
+                        }
                     }
                 } else {
                     if (typeof $scope.propertyValue === 'object' || $scope.propertyValue instanceof Array) {
@@ -278,18 +284,14 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             $scope.addProperty = function() {
                 if ($scope.valueType == $scope.valueTypeEnum[2]) {
                     $scope.object[$scope.propertyName] = [];
-                    if ($scope.onlyadd) {
-                        $scope.propertyName = '';
-                        $scope.propertyValue = '';
-                    }
                 } else if ($scope.valueType == $scope.valueTypeEnum[1]) {
                     $scope.object[$scope.propertyName] = {};
-                    if ($scope.onlyadd) {
-                        $scope.propertyName = '';
-                        $scope.propertyValue = '';
-                    }
                 } else {
                     $scope.object[$scope.propertyName] = valueToSet($scope.propertyValue);
+                }
+                if ($scope.onlyadd) {
+                        $scope.propertyName = '';
+                        $scope.propertyValue = '';
                 }
                 adjustAddUpdateDisabled();
             };
