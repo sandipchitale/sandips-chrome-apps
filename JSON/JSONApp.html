@@ -8,23 +8,47 @@
             .code {
                 font-family: monospace;
             }
+            table, tr, th, td {
+                border-collapse: collapse;
+                border: 1px dotted #EEE;
+                padding: 4px;
+            }
+            tr {
+                vertical-align: top;
+            }
         </style>
     </head>
     <body>
         <div >
             <div ng-controller="JSONController">
-                <label><input type="checkbox" ng-model="hideeditproperty"/>Hide editproperty example</label>
-                <div ng-hide="hideeditproperty">
-                <span class="dim">The following is output of <span class="code" ng:non-bindable>&lt;editproperty object=&quot;person&quot;&gt;&lt;/editproperty&gt;</span>:</span>
+                <table>
+                    <!-- <tr>
+                        <td colspan="2">
+                <span class="dim code" ng:non-bindable>{{person}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <pre>{{person|json}}</pre>
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>
+                <span class="dim code" ng:non-bindable>&lt;editproperty object=&quot;person&quot;&gt;&lt;/editproperty&gt;</span>
+                        </td>
+                        <td>
+                <span class="dim code" ng:non-bindable>&lt;editobjectproperty object=&quot;person&quot;&gt;&lt;/editobjectproperty&gt;</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                 <editproperty object="person"></editproperty>
-                </div>
-                <hr/>
-                <label><input type="checkbox" ng-model="showeditobjectproperty"/>Show editobjectproperty example</label>
-                <div ng-show="showeditobjectproperty">
-                <span class="dim">The following is output of 
-                <span class="code" ng:non-bindable>&lt;editobjectproperty object=&quot;person&quot;&gt;&lt;/editobjectproperty&gt;</span> which is a composition of the other two:</span>
+                        </td>
+                        <td>
                 <editobjectproperty object="person"></editobjectproperty>
-                </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <script src="angular-1.1.0.min.js"></script>

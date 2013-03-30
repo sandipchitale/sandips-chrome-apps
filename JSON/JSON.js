@@ -1,7 +1,7 @@
 angular.module('JSON', []).directive("editobject", function($templateCache) {
     // self template
     var template =
-'<pre>{<span ng-repeat="propertyname in sortedKeysArray(object)"><editpropertyvalue object="object"></editpropertyvalue></span>}</pre>';
+'<pre>{<span ng-repeat="propname in sortedKeysArray(object)"><editpropertyvalue object="object" propertyname="propname"></editpropertyvalue></span>}</pre>';
     $templateCache.put('editobject.html', template);
 
     return {
@@ -51,10 +51,10 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
         template : template,
         //*/
         scope : {
-            object : '='
+            object : '=',
+            propertyname: '='
         },
         controller : function($scope) {
-            $scope.propertyname = $scope.$parent.propertyname;
             $scope.propertyValueHolder = [];
             $scope.propertyValue = $scope.object[$scope.propertyname];
             $scope.propertyValueStyle = {};
