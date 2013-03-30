@@ -21,7 +21,7 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
                     if (typeof prop === 'function') {
                         continue;
                     }
-                    if (prop.indexOf('$$') == 0) {
+                    if (prop == '$$hashKey') {
                         continue;
                     }
                     keysArray.push(prop);
@@ -346,8 +346,9 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
         input = angular.copy(input);
         angular.forEach( input, function(v,k)
         {
-            if(k.indexOf('$$') == 0)
+            if(k === '$$hashKey') {
                 delete input[k];
+            }
         });
         return input;
     }
