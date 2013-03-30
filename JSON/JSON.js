@@ -364,6 +364,10 @@ angular.module('JSON', []).directive("editobject", function($templateCache) {
             
             return val;
         }
+        
+        /*
+        Further modifications to https://raw.github.com/mirkokiefer/canonical-json/master/index.js
+        */
 
         /*
         The original version of this code is taken from Douglas Crockford's json2.js:
